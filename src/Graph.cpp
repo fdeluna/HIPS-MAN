@@ -44,7 +44,7 @@ Graph::addVertex
 void
 Graph::addEdge
 (GraphVertex* pOrigin, GraphVertex* pDestination, bool undirected)
-{
+{	
   GraphEdge* pEdge = new GraphEdge(pOrigin, pDestination);
   _edges.push_back(pEdge);
   pOrigin->addEdge(pEdge);

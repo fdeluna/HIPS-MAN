@@ -295,6 +295,7 @@ Importer::addVertexToScene
   // Instanciar la posición del nodo.
   Ogre::Vector3 position(x, y, z);
   // Instanciar el nodo.
+  std::cout << vertex_type << std::endl;
   Node n(vertex_index, vertex_type, position);
   // Añadir el nodo a la estructura de grafo.
   scene->getGraph()->addVertex(new GraphVertex(n));
@@ -326,7 +327,10 @@ Importer::addEdgeToScene
   GraphVertex *v1 = scene->getGraph()->getVertex(edge[0]);
   GraphVertex *v2 = scene->getGraph()->getVertex(edge[1]);
 
-  scene->getGraph()->addEdge(v1, v2);
+  if (v1 && v2)
+  {
+	  scene->getGraph()->addEdge(v1, v2);
+  }
 
   XMLString::release(&vertex_ch);
 }

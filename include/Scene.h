@@ -20,7 +20,7 @@ class Scene
   ~Scene ();
   
   void addCamera (Camera* camera);    
-  Graph* getGraph () const { return _graph;}
+  Graph* getGraph () const { return _graph;}  
   std::vector<Camera*> getCameras () const { return _cameras; }
     
  private:

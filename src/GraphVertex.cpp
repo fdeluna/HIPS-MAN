@@ -35,5 +35,5 @@ GraphVertex::adjacents () const
        ++it)
     result.push_back((*it)->getDestination());
 
-  return result;
+	  return result;
 }
