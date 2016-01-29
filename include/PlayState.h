@@ -26,6 +26,7 @@
 #include <Importer.h>
 #include <Scene.h>
 
+#include "PacMan.h"
 #include "GameState.h"
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
@@ -62,22 +63,10 @@ protected:
 	Ogre::Camera* _camera;
 	Importer* importer;
 	Scene* scene;
-	bool _exitGame;
-	Ogre::Vector3 direccionOgre;
-	Ogre::Vector3 movimientroOgre;
-	bool canNext = true;
-	Ogre::SceneNode *node1;
-	Ogre::SceneNode* graphNode;	
-	std::vector<GraphVertex*> adjacentsVertex;
-	GraphVertex *actualVertex;
-	GraphVertex *nextVertex;
-	GraphVertex *targetVertex;
-	float epsilon = 0.1;
-	Ogre::Vector3 actualDirection;
-	Ogre::Vector3 lastDirection;
-	bool entreNodos = false;
-	int i = 0;
-
+	bool _exitGame;		
+	
+	Ogre::SceneNode* graphNode;		
+	PacMan* pacMan;
 };
 
 #endif

@@ -12,6 +12,7 @@
 #include <vector>
 #include <GraphEdge.h>
 #include <Node.h>
+#include <Enums.h>
 
 using namespace std;
 
@@ -28,6 +29,7 @@ class GraphVertex
 
   std::vector<GraphEdge*> getEdges () const { return _edges; }
   std::vector<GraphVertex*> adjacents () const;
+  static GraphVertex* GraphVertex::nextVertx(Direcction direction, GraphVertex* actualVertx);
   
  private:
   Node _data;
