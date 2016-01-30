@@ -23,7 +23,8 @@
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "GameState.h"
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
@@ -57,6 +58,37 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   Ogre::Camera* _camera;
 
   bool _exitGame;
+
+  //PARA CEGUI
+  CEGUI::OgreRenderer* renderer;
+  CEGUI::Window* introStateUI;
+  CEGUI::Window* exitButton;
+  CEGUI::Window* playButton;
+  CEGUI::Window* highscoreButton;
+  CEGUI::Window* creditsButton;
+  CEGUI::Window* pacmanTittle;
+  CEGUI::Window* fondoCredits;
+  CEGUI::Window* fondoScore;
+  CEGUI::Window* select;
+  CEGUI::Window* intro;
+
+
+  bool _play;
+  bool _highscore;
+  bool _credits;
+
+
+  float _timeSinceLastFrame;
+  CEGUI::Window* _scoreText;
+
+
+  bool play(const CEGUI::EventArgs &e);
+  bool quit(const CEGUI::EventArgs &e);
+  bool highscore(const CEGUI::EventArgs &e);
+  bool credits(const CEGUI::EventArgs &e);
+
+  void createGUI();
+  CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 };
 
 #endif

@@ -25,7 +25,8 @@
 #include <OIS/OIS.h>
 #include <Importer.h>
 #include <Scene.h>
-
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "PacMan.h"
 #include "GameState.h"
 
@@ -55,6 +56,8 @@ public:
 
 	GraphVertex* nextVertx(Ogre::Vector3 direction, GraphVertex* actualVertx);
 	void movePlayer();
+	void createGUI();
+	bool save(const CEGUI::EventArgs &e);
 
 protected:
 	Ogre::Root* _root;
@@ -66,7 +69,34 @@ protected:
 	bool _exitGame;		
 	
 	Ogre::SceneNode* graphNode;		
+	Ogre::SceneNode*levelNode;
+
 	PacMan* pacMan;
+	int _score = 0;
+
+	//ESTADOS
+	bool winBool = false;
+	bool loseBool = false;
+
+	// CEGUI
+	CEGUI::Window* playStateUI;
+	CEGUI::Window* _gameOverUI;
+	CEGUI::Window* _winUI;
+	CEGUI::Window* _exitGameOver;
+	CEGUI::Window* _scoreText;
+	CEGUI::Window* _scoreTextGUI;
+	CEGUI::Window* _scoreNumberTextGUI;
+	CEGUI::Window* _lifeText;
+	CEGUI::Window*	_nameText;
+	CEGUI::Window* _save;
+	CEGUI::Window* _turnText;
+	
+
+
+
+
+	// Time match for cegui GUI
+	float _time = 0;
 };
 
 #endif

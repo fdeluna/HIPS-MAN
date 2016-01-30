@@ -23,7 +23,8 @@
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "GameState.h"
 
 class PauseState : public Ogre::Singleton<PauseState>, public GameState
@@ -49,6 +50,7 @@ class PauseState : public Ogre::Singleton<PauseState>, public GameState
   // Heredados de Ogre::Singleton.
   static PauseState& getSingleton ();
   static PauseState* getSingletonPtr ();
+  void createGUI();
 
  protected:
   Ogre::Root* _root;
@@ -57,6 +59,26 @@ class PauseState : public Ogre::Singleton<PauseState>, public GameState
   Ogre::Camera* _camera;
 
   bool _exitGame;
+
+  // CEGUI
+  CEGUI::Window* playStateUI;
+
+  CEGUI::Window* _winUI;
+  CEGUI::Window* _pauseUI;
+  CEGUI::Window* _resume;
+  CEGUI::Window* _exitPause;
+  CEGUI::Window* _exitGameOver;
+  CEGUI::Window* _retry;
+  CEGUI::Window* _scoreText;
+  CEGUI::Window*	_nameText;
+  CEGUI::Window* _save;
+  CEGUI::Window* _turnText;
+  CEGUI::Window* _scoreTextGUI;
+  CEGUI::Window* _scoreNumberTextGUI;
+  CEGUI::Window* _lifeText;
+  CEGUI::Window* _gameOverUI;
+
+
 };
 
 #endif

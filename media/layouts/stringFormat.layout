@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,-2},{0,3},{1,-2},{1,3}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="MouseCursorImage" value="TaharezLook/MouseArrow" />
+        <Window type="TaharezLook/StaticText" name="IATime" >
+            <Property name="Area" value="{{0,252},{0,17},{0,332},{0,95}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="HorzScrollPageSize" value="80" />
+            <Property name="VertScrollPageSize" value="78" />
+            <Window type="TaharezLook/Label" name="LabelIA" >
+                <Property name="Area" value="{{0,20},{0,0},{0,60},{0,32}}" />
+                <Property name="Text" value="IA" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="NormalTextColour" value="FF000000" />
+                <Property name="DisabledTextColour" value="FFFFDDDD" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/StaticText" name="GameTime" >
+            <Property name="Area" value="{{0,512},{0,17},{0,592},{0,95}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="HorzScrollPageSize" value="80" />
+            <Property name="VertScrollPageSize" value="78" />
+            <Window type="TaharezLook/Label" name="LabelTime" >
+                <Property name="Area" value="{{0,-24},{0,1},{0,104},{0,33}}" />
+                <Property name="Text" value="TIME" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="NormalTextColour" value="FF000000" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/StaticText" name="PlayerTime" >
+            <Property name="Area" value="{{0,773},{0,18},{0,853},{0,96}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="HorzScrollPageSize" value="80" />
+            <Property name="VertScrollPageSize" value="78" />
+            <Window type="TaharezLook/Label" name="LabelPlayer" >
+                <Property name="Area" value="{{0,-25},{0,-1},{0,103},{0,31}}" />
+                <Property name="Text" value="PLAYER" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="NormalTextColour" value="FF000000" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/StaticText" name="Turn" >
+            <Property name="Area" value="{{0,448},{0,128},{0,657},{0,189}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="HorzScrollPageSize" value="209" />
+            <Property name="VertScrollPageSize" value="61" />
+        </Window>
+    </Window>
+</GUILayout>
