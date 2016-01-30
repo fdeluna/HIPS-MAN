@@ -6,7 +6,6 @@
 ************************************************************/
 
 #include <GraphVertex.h>
-#include <Enums.h>
 
 GraphVertex::GraphVertex
 (const Node& data)
@@ -83,6 +82,10 @@ GraphVertex* GraphVertex::nextVertx(Direcction direction, GraphVertex* actualVer
 	return nextVertex;
 }
 
+bool  GraphVertex::checkVertex(GraphVertex* actualVertx, std::string type)
+{		
+	return actualVertx->getData().getType() == type ? true : false;
+}
 
 
 

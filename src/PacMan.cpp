@@ -18,7 +18,7 @@ PacMan::~PacMan()
 
 void PacMan::update()
 {
-	move();
+	move();	
 }
 
 
@@ -27,19 +27,21 @@ void PacMan::move()
 {
 	if (targetVertex && sceneNode->getPosition().distance(targetVertex->getData().getPosition()) > EPSILON)
 	{
-		sceneNode->translate(direcction);
+		sceneNode->translate(direcction);		
 	}
 	else
-	{
-		if (targetVertex){
+	{	
+		if (targetVertex)
+		{
 			currentVertex = targetVertex;
 		}
+
 		if (newDirecction != currentDirecction && GraphVertex::nextVertx(newDirecction, targetVertex))
 		{
 			newVertex = GraphVertex::nextVertx(newDirecction, targetVertex);
 		}
-		else{			
-			targetVertex = GraphVertex::nextVertx(currentDirecction, currentVertex);			
+		else{
+			targetVertex = GraphVertex::nextVertx(currentDirecction, currentVertex);
 			if (!targetVertex){
 				currentDirecction = Direcction::NONE;
 			}
@@ -49,9 +51,16 @@ void PacMan::move()
 			targetVertex = newVertex;
 			currentDirecction = newDirecction;
 			newVertex = NULL;
-		}		
-	}	
-	directionEnumToVector3(currentDirecction);	
+		}
+
+		if (GraphVertex::checkVertex(currentVertex, "Empty")){
+			std::cout << currentVertex->getData().getType() << std::endl;
+			addScore(10);			
+		}				
+	}
+
+	directionEnumToVector3(currentDirecction);
+
 }
 
 const bool PacMan::isDead()
@@ -74,21 +83,25 @@ void PacMan::setScore(int points)
 	score = points;
 }
 
+void PacMan::addScore(int points)
+{
+	score += points;
+}
+
 void PacMan::setSpeed(float fSpeed)
 {
 	speed = fSpeed;
 }
 
 void PacMan::setDirecction(Direcction dDirection)
-{
-	std::cout << "SETDIRECCTION";
+{	
 	if (currentDirecction == Direcction::NONE){
 		currentDirecction = dDirection;
-		newDirecction = currentDirecction;		
+		newDirecction = currentDirecction;
 	}
 	else{
 		newDirecction = dDirection;
-	}		
+	}
 }
 
 void PacMan::directionEnumToVector3(Direcction dDirection)

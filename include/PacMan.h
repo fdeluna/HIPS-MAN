@@ -23,6 +23,7 @@ public:
 	int   getScore();
 	float getSpeed();
 	void  setScore(int points);
+	void  addScore(int points);
 	void  setSpeed(float fSpeed);
 	void  setDirecction(Direcction dDirecction);
 	
@@ -42,6 +43,7 @@ private:
 	GraphVertex* currentVertex;
 
 	void directionEnumToVector3(Direcction dDirection);
+	void checkVertex(GraphVertex* vertex);
 
 	
 };

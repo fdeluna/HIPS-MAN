@@ -29,7 +29,9 @@ class GraphVertex
 
   std::vector<GraphEdge*> getEdges () const { return _edges; }
   std::vector<GraphVertex*> adjacents () const;
-  static GraphVertex* GraphVertex::nextVertx(Direcction direction, GraphVertex* actualVertx);
+
+  static GraphVertex* nextVertx(Direcction direction, GraphVertex* actualVertx);
+  static bool checkVertex(GraphVertex* actualVertx, std::string type);
   
  private:
   Node _data;

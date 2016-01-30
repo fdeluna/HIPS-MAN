@@ -11,7 +11,7 @@ PlayState::enter()
 {
 	importer = new Importer();
 	scene = new Scene();
-	importer->parseScene("./data/output1.xml", scene);
+	importer->parseScene("./data/output.xml", scene);
 
 	_root = Ogre::Root::getSingletonPtr();
 
@@ -55,7 +55,7 @@ PlayState::enter()
 		vertexNode->setScale(1, 1, 1);
 		vertexNode->setPosition(v->getData().getPosition());
 		graphNode->addChild(vertexNode);
-		if (v->getData().getType() == "PacmanRespaw")
+		if (v->getData().getType() == "PacmanRespawn")
 		{
 			actualVertex = v;
 		}
@@ -150,9 +150,7 @@ PlayState::keyPressed
 	}
 	if (e.key == OIS::KC_RIGHT) 
 	{
-
-		pacMan->setDirecction(Direcction::RIGHT);
-		
+		pacMan->setDirecction(Direcction::RIGHT);		
 	}
 
 	if (e.key == OIS::KC_LEFT) 

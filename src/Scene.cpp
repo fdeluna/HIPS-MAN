@@ -2,8 +2,11 @@
 
 Scene::Scene ()
 {
-  _graph = new Graph;
+	_graph = new Graph;
+
 }
+
+
 
 Scene::~Scene ()
 {

@@ -12,6 +12,7 @@
 #include <Camera.h>
 #include <Node.h>
 #include <Graph.h>
+#include <Ogre.h>
 
 class Scene
 {
@@ -22,6 +23,7 @@ class Scene
   void addCamera (Camera* camera);    
   Graph* getGraph () const { return _graph;}  
   std::vector<Camera*> getCameras () const { return _cameras; }
+  void initMap(Ogre::SceneNode* node);
     
  private:
   Graph *_graph;
