@@ -3,7 +3,7 @@
 
 #include <Ogre.h>
 
-#define MOVE_SPEED  0.02
+#define MOVE_SPEED  0.015
 #define MOVE_UP  Ogre::Vector3(0, 0, MOVE_SPEED)
 #define MOVE_DOWN  Ogre::Vector3(0, 0, -MOVE_SPEED)
 #define MOVE_RIGHT  Ogre::Vector3(MOVE_SPEED, 0, 0)

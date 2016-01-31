@@ -34,10 +34,10 @@
   <vertex index="10" type ="Void">
     <x>-2.928000</x> <y>-0.000000</y> <z>9.146000</z>
   </vertex>
-  <vertex index="11" type ="Void">
+  <vertex index="11" type ="Empty">
     <x>-14.639000</x> <y>-0.000000</y> <z>3.224000</z>
   </vertex>
-  <vertex index="12" type ="Empty">
+  <vertex index="12" type ="Void">
     <x>-2.928000</x> <y>-0.000000</y> <z>3.224000</z>
   </vertex>
   <vertex index="13" type ="Void">
@@ -85,7 +85,7 @@
   <vertex index="27" type ="Void">
     <x>2.928000</x> <y>-0.000000</y> <z>9.146000</z>
   </vertex>
-  <vertex index="28" type ="GoshtRespawn">
+  <vertex index="28" type ="GhostRespawn">
     <x>2.928000</x> <y>-0.000000</y> <z>3.224000</z>
   </vertex>
   <vertex index="29" type ="Empty">
@@ -520,7 +520,7 @@
   <vertex index="172" type ="Void">
     <x>4.880000</x> <y>-0.000000</y> <z>9.146000</z>
   </vertex>
-  <vertex index="173" type ="Empty">
+  <vertex index="173" type ="Void">
     <x>4.880000</x> <y>-0.000000</y> <z>3.224000</z>
   </vertex>
   <vertex index="174" type ="Void">
@@ -535,7 +535,7 @@
   <vertex index="177" type ="Void">
     <x>0.976000</x> <y>-0.000000</y> <z>9.146000</z>
   </vertex>
-  <vertex index="178" type ="Empty">
+  <vertex index="178" type ="Void">
     <x>0.976000</x> <y>-0.000000</y> <z>3.224000</z>
   </vertex>
   <vertex index="179" type ="">
@@ -544,7 +544,7 @@
   <vertex index="180" type ="Void">
     <x>-0.976000</x> <y>-0.000000</y> <z>9.146000</z>
   </vertex>
-  <vertex index="181" type ="GoshtRespawn">
+  <vertex index="181" type ="GhostRespawn">
     <x>-0.976000</x> <y>-0.000000</y> <z>3.224000</z>
   </vertex>
   <vertex index="182" type ="Void">
@@ -553,7 +553,7 @@
   <vertex index="183" type ="Void">
     <x>-4.880000</x> <y>-0.000000</y> <z>9.146000</z>
   </vertex>
-  <vertex index="184" type ="GoshtRespawn">
+  <vertex index="184" type ="GhostRespawn">
     <x>-4.880000</x> <y>-0.000000</y> <z>3.224000</z>
   </vertex>
   <vertex index="185" type ="Void">
@@ -565,52 +565,52 @@
   <vertex index="187" type ="Void">
     <x>-6.831000</x> <y>-0.000000</y> <z>-2.698000</z>
   </vertex>
-  <vertex index="188" type ="Empty">
+  <vertex index="188" type ="Void">
     <x>-2.928000</x> <y>-0.000000</y> <z>5.198000</z>
   </vertex>
   <vertex index="189" type ="Void">
     <x>-8.783000</x> <y>-0.000000</y> <z>5.198000</z>
   </vertex>
-  <vertex index="190" type ="Empty">
+  <vertex index="190" type ="Void">
     <x>2.928000</x> <y>-0.000000</y> <z>5.198000</z>
   </vertex>
   <vertex index="191" type ="Void">
     <x>8.783000</x> <y>-0.000000</y> <z>5.198000</z>
   </vertex>
-  <vertex index="192" type ="Empty">
+  <vertex index="192" type ="Void">
     <x>4.880000</x> <y>-0.000000</y> <z>5.198000</z>
   </vertex>
-  <vertex index="193" type ="Empty">
+  <vertex index="193" type ="Void">
     <x>0.976000</x> <y>-0.000000</y> <z>5.198000</z>
   </vertex>
-  <vertex index="194" type ="Empty">
+  <vertex index="194" type ="Void">
     <x>-0.976000</x> <y>-0.000000</y> <z>5.198000</z>
   </vertex>
-  <vertex index="195" type ="Empty">
+  <vertex index="195" type ="Void">
     <x>-4.880000</x> <y>-0.000000</y> <z>5.198000</z>
   </vertex>
-  <vertex index="196" type ="Empty">
+  <vertex index="196" type ="Void">
     <x>-0.976000</x> <y>-0.000000</y> <z>1.250000</z>
   </vertex>
-  <vertex index="197" type ="Empty">
+  <vertex index="197" type ="Void">
     <x>-2.928000</x> <y>-0.000000</y> <z>1.250000</z>
   </vertex>
   <vertex index="198" type ="Void">
     <x>-8.783000</x> <y>-0.000000</y> <z>1.250000</z>
   </vertex>
-  <vertex index="199" type ="Empty">
+  <vertex index="199" type ="Void">
     <x>2.928000</x> <y>-0.000000</y> <z>1.250000</z>
   </vertex>
   <vertex index="200" type ="Void">
     <x>8.783000</x> <y>-0.000000</y> <z>1.250000</z>
   </vertex>
-  <vertex index="201" type ="Empty">
+  <vertex index="201" type ="Void">
     <x>4.880000</x> <y>-0.000000</y> <z>1.250000</z>
   </vertex>
-  <vertex index="202" type ="Empty">
+  <vertex index="202" type ="Void">
     <x>0.976000</x> <y>-0.000000</y> <z>1.250000</z>
   </vertex>
-  <vertex index="203" type ="Empty">
+  <vertex index="203" type ="Void">
     <x>-4.880000</x> <y>-0.000000</y> <z>1.250000</z>
   </vertex>
   <vertex index="204" type ="Void">
@@ -700,7 +700,7 @@
   <vertex index="232" type ="Empty">
     <x>24.398000</x> <y>0.000000</y> <z>26.912000</z>
   </vertex>
-  <vertex index="233" type ="Empty">
+  <vertex index="233" type ="1Empty">
     <x>22.446000</x> <y>0.000000</y> <z>28.886000</z>
   </vertex>
   <vertex index="234" type ="Empty">
@@ -823,10 +823,10 @@
   <vertex index="273" type ="Void">
     <x>24.398000</x> <y>0.000000</y> <z>3.224000</z>
   </vertex>
-  <vertex index="274" type ="Teleport">
+  <vertex index="274" type ="lTeleport">
     <x>26.350000</x> <y>0.000000</y> <z>3.224000</z>
   </vertex>
-  <vertex index="275" type ="Teleport">
+  <vertex index="275" type ="rTeleport">
     <x>-26.350000</x> <y>0.000000</y> <z>3.224000</z>
   </vertex>
   <vertex index="276" type ="Void">
@@ -919,10 +919,10 @@
   <vertex index="305" type ="Void">
     <x>8.783000</x> <y>-0.000000</y> <z>7.172000</z>
   </vertex>
-  <vertex index="306" type ="CageDoor">
+  <vertex index="306" type ="">
     <x>0.976000</x> <y>-0.000000</y> <z>7.172000</z>
   </vertex>
-  <vertex index="307" type ="CageDoor">
+  <vertex index="307" type ="">
     <x>-0.976000</x> <y>-0.000000</y> <z>7.172000</z>
   </vertex>
   <vertex index="308" type ="Empty">
@@ -1418,7 +1418,7 @@
     <vertex>316</vertex> <vertex>317</vertex>
   </edge>
   <edge>
-    <vertex>11</vertex> <vertex>93</vertex>
+    <vertex>11</vertex> <vertex>92</vertex>
   </edge>
   <edge>
     <vertex>11</vertex> <vertex>282</vertex>
@@ -1607,7 +1607,7 @@
     <vertex>233</vertex> <vertex>234</vertex>
   </edge>
   <edge>
-    <vertex>22</vertex> <vertex>234</vertex>
+    <vertex>22</vertex> <vertex>233</vertex>
   </edge>
   <edge>
     <vertex>22</vertex> <vertex>232</vertex>
@@ -1904,7 +1904,7 @@
     <vertex>250</vertex> <vertex>251</vertex>
   </edge>
   <edge>
-    <vertex>16</vertex> <vertex>251</vertex>
+    <vertex>16</vertex> <vertex>250</vertex>
   </edge>
   <edge>
     <vertex>7</vertex> <vertex>254</vertex>
@@ -1931,10 +1931,7 @@
     <vertex>243</vertex> <vertex>244</vertex>
   </edge>
   <edge>
-    <vertex>242</vertex> <vertex>244</vertex>
-  </edge>
-  <edge>
-    <vertex>18</vertex> <vertex>244</vertex>
+    <vertex>242</vertex> <vertex>243</vertex>
   </edge>
   <edge>
     <vertex>17</vertex> <vertex>247</vertex>
@@ -1980,6 +1977,9 @@
   </edge>
   <edge>
     <vertex>318</vertex> <vertex>319</vertex>
+  </edge>
+  <edge>
+    <vertex>18</vertex> <vertex>242</vertex>
   </edge>
 </graph>
 

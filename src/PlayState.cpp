@@ -9,11 +9,7 @@ template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 void
 PlayState::enter()
 {
-	importer = new Importer();
-	scene = new Scene();
-	importer->parseScene("./data/output.xml", scene);
-
-	_root = Ogre::Root::getSingletonPtr();
+		_root = Ogre::Root::getSingletonPtr();
 
 	// Se recupera el gestor de escena y la cámara.
 	_sceneMgr = _root->getSceneManager("SceneManager");
@@ -30,12 +26,23 @@ PlayState::enter()
 	_camera->setAspectRatio(width / height);
 
 
-
+	importer = new Importer();
+	scene = new Scene(_sceneMgr);
+	importer->parseScene("./data/output.xml", scene);
 
 	std::stringstream nameNode;
 	std::stringstream nameEntity;
 	graphNode = _sceneMgr->createSceneNode("Graph");
 	graphNode->pitch(Ogre::Degree(90));
+	graphNode->yaw(Ogre::Degree(180));
+	graphNode->setPosition(0, 0, 0);
+
+
+	scene->initMap(graphNode);
+	_sceneMgr->getRootSceneNode()->addChild(graphNode);
+
+
+	/*graphNode->pitch(Ogre::Degree(90));
 	graphNode->yaw(Ogre::Degree(180));
 	graphNode->setPosition(0, 0, 0);
 	int i = 0;
@@ -62,7 +69,7 @@ PlayState::enter()
 		i++;
 	}
 	
-	_sceneMgr->getRootSceneNode()->addChild(graphNode);
+	_sceneMgr->getRootSceneNode()->addChild(graphNode);*/
 
 	//Set level
 	Ogre::Entity* levelEntity = _sceneMgr->createEntity("PacManLevel.mesh");
@@ -76,7 +83,7 @@ PlayState::enter()
 
 
 	//Add Pacman
-	pacMan = new PacMan(_sceneMgr, "pacManNode", "pacManEntity", "Sinbad.mesh", actualVertex);
+	pacMan = new PacMan(_sceneMgr, "pacManNode", "pacManEntity", "Sinbad.mesh", scene->getPacManRespawn());
 	pacMan->getSceneNode()->setScale(0.06, 0.06, 0.06);			
 	graphNode->addChild(pacMan->getSceneNode());
 

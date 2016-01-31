@@ -18,7 +18,21 @@ PacMan::~PacMan()
 
 void PacMan::update()
 {
-	move();	
+	// TODO SWITCH ESTADOS PACMAN
+	move();
+		
+	if (Scene::getSingletonPtr()->contaisMapItem(currentVertex))
+	{
+		if (GraphVertex::checkVertex(currentVertex, "Empty"))
+		{			
+			addScore(10);
+		}
+		else if (GraphVertex::checkVertex(currentVertex, "Pill"))
+		{
+			addScore(20);
+		}
+		Scene::getSingletonPtr()->removeMapItem(currentVertex);
+	}
 }
 
 
@@ -27,14 +41,24 @@ void PacMan::move()
 {
 	if (targetVertex && sceneNode->getPosition().distance(targetVertex->getData().getPosition()) > EPSILON)
 	{
-		sceneNode->translate(direcction);		
+		sceneNode->translate(direcction);
 	}
 	else
-	{	
+	{			
 		if (targetVertex)
 		{
-			currentVertex = targetVertex;
+			currentVertex = targetVertex;			
 		}
+
+		if (currentVertex->getData().getIndex() == Scene::getSingletonPtr()->getRightTeleport()->getData().getIndex())
+		{
+			currentVertex = Scene::getSingletonPtr()->getLeftTeleport();			
+		}
+		else if (currentVertex->getData().getIndex() == Scene::getSingletonPtr()->getLeftTeleport()->getData().getIndex())
+		{
+			currentVertex = Scene::getSingletonPtr()->getRightTeleport();						
+		}
+		sceneNode->setPosition(currentVertex->getData().getPosition());
 
 		if (newDirecction != currentDirecction && GraphVertex::nextVertx(newDirecction, targetVertex))
 		{
@@ -51,11 +75,6 @@ void PacMan::move()
 			targetVertex = newVertex;
 			currentDirecction = newDirecction;
 			newVertex = NULL;
-		}
-
-		if (GraphVertex::checkVertex(currentVertex, "Empty")){
-			std::cout << currentVertex->getData().getType() << std::endl;
-			addScore(10);			
 		}				
 	}
 
@@ -94,7 +113,7 @@ void PacMan::setSpeed(float fSpeed)
 }
 
 void PacMan::setDirecction(Direcction dDirection)
-{	
+{
 	if (currentDirecction == Direcction::NONE){
 		currentDirecction = dDirection;
 		newDirecction = currentDirecction;

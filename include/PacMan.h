@@ -3,6 +3,7 @@
 
 #include <Ogre.h>
 #include <GraphVertex.h>
+#include <Scene.h>
 #include <Enums.h>
 
 #include "GameObject.h"
@@ -30,7 +31,7 @@ public:
 private:
 	int   life = 3;
 	int   score = 0;
-	float speed;
+	float speed = 1;
 	bool  dead = 0;
 
 	Ogre::Vector3 direcction = Ogre::Vector3::ZERO;
