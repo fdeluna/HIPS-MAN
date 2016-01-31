@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "PauseState.h"
+#include "IntroState.h"
 
 #include <Importer.h>
 #include <Scene.h>
@@ -11,9 +12,18 @@ PlayState::enter()
 {
 		_root = Ogre::Root::getSingletonPtr();
 
+	if (_root->hasSceneManager("PlayState") && _sceneMgr->hasCamera(
+		"IntroCamera")) {
+		_sceneMgr = _root->getSceneManager("PlayState");
+		_camera = _sceneMgr->getCamera("IntroCamera");
+	}
+	else {
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
+		// set camera
+		_camera = _sceneMgr->createCamera("IntroCamera");
+	}
 	// Se recupera el gestor de escena y la cámara.
-	_sceneMgr = _root->getSceneManager("SceneManager");
-	_camera = _sceneMgr->getCamera("IntroCamera");
+	
 	_camera->setPosition(Ogre::Vector3(0, -40, -60));
 	//_camera->pitch(Ogre::Degree(90));
 	_camera->lookAt(Ogre::Vector3(0, 0, 10));
@@ -23,6 +33,11 @@ PlayState::enter()
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
 	double width = _viewport->getActualWidth();
 	double height = _viewport->getActualHeight();
+	//_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+	Ogre::Light* light = _sceneMgr->createLight("Luz1");
+	light->setType(Ogre::Light::LT_POINT);
+	light->setPosition(0, 150, 250);
+	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 	_camera->setAspectRatio(width / height);
 
 
@@ -73,7 +88,7 @@ PlayState::enter()
 
 	//Set level
 	Ogre::Entity* levelEntity = _sceneMgr->createEntity("PacManLevel.mesh");
-	Ogre::SceneNode* levelNode = _sceneMgr->createSceneNode("PacManNode");
+	levelNode = _sceneMgr->createSceneNode("PacManNode");
 	levelNode->attachObject(levelEntity);
 	levelNode->setPosition(0, 0, 0);
 	levelNode->pitch(Ogre::Degree(270));
@@ -102,8 +117,11 @@ PlayState::enter()
 	lights->attachObject(light2);
 
 	_sceneMgr->getRootSceneNode()->addChild(lights);
-
+	_score = 0;
+	winBool = false;
+	loseBool = false;
 	_exitGame = false;
+	createGUI();
 }
 
 void
@@ -124,13 +142,28 @@ void
 PlayState::resume()
 {
 	// Se restaura el background colour.
-	_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 1.0));
+	//_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 1.0));
+	graphNode->setVisible(true);
+	levelNode->setVisible(true);
+	_scoreTextGUI->setVisible(true);
+	_scoreNumberTextGUI->setVisible(true);
+	_lifeText->setVisible(true);
+	winBool = false;
+	loseBool = false;
 }
 
 bool
 PlayState::frameStarted
 (const Ogre::FrameEvent& evt)
 {
+	if (winBool){
+		_winUI->setVisible(true);
+	}
+	
+	if (loseBool){
+		_gameOverUI->setVisible(true);
+
+	}
 	pacMan->update();
 
 	return true;
@@ -151,10 +184,46 @@ PlayState::keyPressed
 (const OIS::KeyEvent &e)
 {
 	// Tecla p --> PauseState.
-	if (e.key == OIS::KC_P) 
+	if (!winBool && !loseBool && e.key == OIS::KC_ESCAPE)
 	{
+		graphNode->setVisible(false);
+		levelNode->setVisible(false);
+		_scoreTextGUI->setVisible(false);
+		_scoreNumberTextGUI->setVisible(false);
+		_lifeText->setVisible(false);
+		_winUI->setVisible(false);
+		_gameOverUI->setVisible(false);
 		pushState(PauseState::getSingletonPtr());
 	}
+	//TEMPORAL PARA ACCEDER A LOSE Y WIN GUI
+	if (e.key == OIS::KC_W){
+		winBool = true;
+		graphNode->setVisible(false);
+		levelNode->setVisible(false);
+		_scoreTextGUI->setVisible(false);
+		_scoreNumberTextGUI->setVisible(false);
+		_lifeText->setVisible(false);
+	}
+	if (e.key == OIS::KC_L){
+		loseBool = true;
+		_gameOverUI->setVisible(true);
+
+		graphNode->setVisible(false);
+		levelNode->setVisible(false);
+		_scoreTextGUI->setVisible(false);
+		_scoreNumberTextGUI->setVisible(false);
+		_lifeText->setVisible(false);
+	}
+	
+	if (winBool && e.key == OIS::KC_ESCAPE)
+	{
+		changeState(IntroState::getSingletonPtr());
+	}
+	if (loseBool && e.key == OIS::KC_ESCAPE)
+	{
+		changeState(IntroState::getSingletonPtr());
+	}
+	
 	if (e.key == OIS::KC_RIGHT) 
 	{
 		pacMan->setDirecction(Direcction::RIGHT);		
@@ -173,6 +242,7 @@ PlayState::keyPressed
 	{
 		pacMan->setDirecction(Direcction::DOWN);
 	}
+	
 }
 
 
@@ -180,10 +250,8 @@ void
 PlayState::keyReleased
 (const OIS::KeyEvent &e)
 {
-	if (e.key == OIS::KC_ESCAPE) {
-		_exitGame = true;
-
-	}
+	
+	
 }
 
 void
@@ -215,4 +283,74 @@ PlayState::getSingleton()
 {
 	assert(msSingleton);
 	return *msSingleton;
+}
+bool PlayState::save(const CEGUI::EventArgs &e) {
+	//ReadScores
+	std::ofstream _scoresTXT;
+	_scoresTXT.open("scores.txt", std::ofstream::app);
+
+	std::stringstream txt;
+	txt << _nameText->getText() << " / " << _score << "\n";
+
+	_scoresTXT << txt.str();
+
+	_exitGame = true;
+	return true;
+}
+void PlayState::createGUI() {
+
+	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
+	CEGUI::Font::setDefaultResourceGroup("Fonts");
+	CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+	CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
+		"TaharezLook/MouseArrow");
+
+	// load all the fonts 
+	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
+
+	//Sheet
+	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
+		"DefaultWindow", "Sheet");
+
+	//Config Window	
+	playStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
+		"playLayout.layout");
+
+
+
+	
+	_gameOverUI = playStateUI->getChild("FondoGameOver");
+	_winUI = playStateUI->getChild("FondoWin");
+	_scoreText = _winUI->getChild("LabelScore");
+	_scoreTextGUI = playStateUI->getChild("ScoreText");
+	_scoreNumberTextGUI = playStateUI->getChild("ScorePlayer");
+	_lifeText = playStateUI->getChild("Life");
+	_winUI->setVisible(false);
+	_gameOverUI->setVisible(false);
+
+	/*
+	_resume->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::resume, this));
+	_exitPause->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::quit, this));
+	_retry->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::retry, this));
+	_exitGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::quit, this));
+
+	_save->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::save, this));
+
+	_winUI->setVisible(false);
+	_pauseUI->setVisible(false);
+	_gameOverUI->setVisible(false);
+	*/
+	sheet->addChild(playStateUI);
+
+	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
+
+
 }
