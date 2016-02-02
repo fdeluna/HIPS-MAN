@@ -47,6 +47,8 @@ class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManag
   // Heredados de Ogre::Singleton.
   static GameManager& getSingleton ();
   static GameManager* getSingletonPtr ();
+  InputManager* getInputManager();
+
 
  protected:
   Ogre::Root* _root;
@@ -62,6 +64,7 @@ class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManag
   bool frameEnded (const Ogre::FrameEvent& evt);
 
  private:
+
   // Funciones para delegar eventos de teclado
   // y ratón en el estado actual.
   bool keyPressed (const OIS::KeyEvent &e);

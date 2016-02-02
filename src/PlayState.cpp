@@ -148,6 +148,9 @@ PlayState::resume()
 	_scoreTextGUI->setVisible(true);
 	_scoreNumberTextGUI->setVisible(true);
 	_lifeText->setVisible(true);
+	_heart1->setVisible(true);
+	_heart2->setVisible(true);
+	_heart3->setVisible(true);
 	winBool = false;
 	loseBool = false;
 }
@@ -156,17 +159,80 @@ bool
 PlayState::frameStarted
 (const Ogre::FrameEvent& evt)
 {
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
+		evt.timeSinceLastFrame);
+
+	_timeGetReady = _timeGetReady + evt.timeSinceLastFrame;
+	
+	std::stringstream scoreString;
+	scoreString << pacMan->getScore();
+	_scoreTextGUI->setText(scoreString.str());
+	
+	if (pacMan->getPillCount() >4){//242
+		winBool = true;
+		graphNode->setVisible(false);
+		levelNode->setVisible(false);
+		_scoreTextGUI->setVisible(false);
+		_scoreNumberTextGUI->setVisible(false);
+		_lifeText->setVisible(false);
+		_heart1->setVisible(false);
+		_heart2->setVisible(false);
+		_heart3->setVisible(false);
+
+	}
+	if (pacMan->isDead()){
+		loseBool = true;
+		graphNode->setVisible(false);
+		levelNode->setVisible(false);
+		_scoreTextGUI->setVisible(false);
+		_scoreNumberTextGUI->setVisible(false);
+		_lifeText->setVisible(false);
+		_heart1->setVisible(false);
+		_heart2->setVisible(false);
+		_heart3->setVisible(false);
+
+
+	}
 	if (winBool){
 		_winUI->setVisible(true);
+		_scoreText->setText(scoreString.str());
+	}
+	else if (loseBool){
+		_gameOverUI->setVisible(true);
+		_scoreTextLose->setText(scoreString.str());
+		_nameText->EventCharacterKey;
+		
+
+	} else{
+		if (_timeGetReady > 4){
+			_getReadyText->setVisible(false);
+			pacMan->update();
+
+		}
 	}
 	
-	if (loseBool){
-		_gameOverUI->setVisible(true);
-
-	}
-	pacMan->update();
+	
 
 	return true;
+}
+void PlayState::mouseMoved(const OIS::MouseEvent &e) {
+
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
+		e.state.X.rel, e.state.Y.rel);
+
+	
+}
+
+void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id) {
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(
+		convertMouseButton(id));
+}
+
+void PlayState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id) {
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(
+		convertMouseButton(id));
+
+	
 }
 
 bool
@@ -183,6 +249,9 @@ void
 PlayState::keyPressed
 (const OIS::KeyEvent &e)
 {
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(
+		static_cast<CEGUI::Key::Scan> (e.key));
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(e.text);
 	// Tecla p --> PauseState.
 	if (!winBool && !loseBool && e.key == OIS::KC_ESCAPE)
 	{
@@ -193,26 +262,26 @@ PlayState::keyPressed
 		_lifeText->setVisible(false);
 		_winUI->setVisible(false);
 		_gameOverUI->setVisible(false);
+		_heart1->setVisible(false);
+		_heart2->setVisible(false);
+		_heart3->setVisible(false);
 		pushState(PauseState::getSingletonPtr());
 	}
 	//TEMPORAL PARA ACCEDER A LOSE Y WIN GUI
 	if (e.key == OIS::KC_W){
-		winBool = true;
-		graphNode->setVisible(false);
-		levelNode->setVisible(false);
-		_scoreTextGUI->setVisible(false);
-		_scoreNumberTextGUI->setVisible(false);
-		_lifeText->setVisible(false);
+		pacMan->setLife(0);
 	}
 	if (e.key == OIS::KC_L){
 		loseBool = true;
 		_gameOverUI->setVisible(true);
-
 		graphNode->setVisible(false);
 		levelNode->setVisible(false);
 		_scoreTextGUI->setVisible(false);
 		_scoreNumberTextGUI->setVisible(false);
 		_lifeText->setVisible(false);
+		_heart1->setVisible(false);
+		_heart2->setVisible(false);
+		_heart3->setVisible(false);
 	}
 	
 	if (winBool && e.key == OIS::KC_ESCAPE)
@@ -245,31 +314,13 @@ PlayState::keyPressed
 	
 }
 
-
 void
 PlayState::keyReleased
 (const OIS::KeyEvent &e)
 {
 	
-	
-}
-
-void
-PlayState::mouseMoved
-(const OIS::MouseEvent &e)
-{
-}
-
-void
-PlayState::mousePressed
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
-{
-}
-
-void
-PlayState::mouseReleased
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
-{
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(
+		static_cast<CEGUI::Key::Scan> (e.key));
 }
 
 PlayState*
@@ -284,8 +335,31 @@ PlayState::getSingleton()
 	assert(msSingleton);
 	return *msSingleton;
 }
+CEGUI::MouseButton PlayState::convertMouseButton(OIS::MouseButtonID id) {
+	CEGUI::MouseButton ceguiId;
+	switch (id) {
+	case OIS::MB_Left:
+		ceguiId = CEGUI::LeftButton;
+		break;
+	case OIS::MB_Right:
+		ceguiId = CEGUI::RightButton;
+		break;
+	case OIS::MB_Middle:
+		ceguiId = CEGUI::MiddleButton;
+		break;
+	default:
+		ceguiId = CEGUI::LeftButton;
+	}
+	return ceguiId;
+}
+bool PlayState::quit(const CEGUI::EventArgs &e) {
+	_exitGame = true;
+	return true;
+}
+
 bool PlayState::save(const CEGUI::EventArgs &e) {
 	//ReadScores
+	/*
 	std::ofstream _scoresTXT;
 	_scoresTXT.open("scores.txt", std::ofstream::app);
 
@@ -293,10 +367,12 @@ bool PlayState::save(const CEGUI::EventArgs &e) {
 	txt << _nameText->getText() << " / " << _score << "\n";
 
 	_scoresTXT << txt.str();
-
-	_exitGame = true;
+	*/
+	
+	changeState(IntroState::getSingletonPtr());
 	return true;
 }
+
 void PlayState::createGUI() {
 
 	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
@@ -325,9 +401,23 @@ void PlayState::createGUI() {
 	_gameOverUI = playStateUI->getChild("FondoGameOver");
 	_winUI = playStateUI->getChild("FondoWin");
 	_scoreText = _winUI->getChild("LabelScore");
+	_scoreTextLose = _gameOverUI->getChild("LabelScore");
+	_getReadyText = playStateUI->getChild("GetReady");
+	_nameText = _winUI->getChild("NameText");
 	_scoreTextGUI = playStateUI->getChild("ScoreText");
 	_scoreNumberTextGUI = playStateUI->getChild("ScorePlayer");
 	_lifeText = playStateUI->getChild("Life");
+	_getReadyText->setText("GET READY");
+	_saveWin = _winUI->getChild("Save");
+	_saveWin->subscribeEvent(CEGUI::PushButton::EventClicked,
+		CEGUI::Event::Subscriber(&PlayState::save, this));
+	_saveGameOver= _gameOverUI->getChild("Exit");
+	_saveGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
+		CEGUI::Event::Subscriber(&PlayState::save, this));
+	_heart1 = playStateUI->getChild("1heart");
+	_heart2 = playStateUI->getChild("2heart");
+	_heart3 = playStateUI->getChild("3heart");
+
 	_winUI->setVisible(false);
 	_gameOverUI->setVisible(false);
 
@@ -351,6 +441,13 @@ void PlayState::createGUI() {
 	sheet->addChild(playStateUI);
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
-
+	// INITIALISE OIS MOUSE POSITION TO CEGUI MOUSE POSITION
+	OIS::MouseState
+		&mutableMouseState =
+		const_cast<OIS::MouseState &> (GameManager::getSingletonPtr()->getInputManager()->getMouse()->getMouseState());
+	mutableMouseState.X.abs
+		= CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getPosition().d_x;
+	mutableMouseState.Y.abs
+		= CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getPosition().d_y;
 
 }

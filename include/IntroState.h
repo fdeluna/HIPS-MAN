@@ -89,6 +89,7 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
 
   void createGUI();
   CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
+
 };
 
 #endif

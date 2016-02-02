@@ -51,6 +51,7 @@ class PauseState : public Ogre::Singleton<PauseState>, public GameState
   static PauseState& getSingleton ();
   static PauseState* getSingletonPtr ();
   void createGUI();
+  CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
  protected:
   Ogre::Root* _root;
@@ -59,7 +60,7 @@ class PauseState : public Ogre::Singleton<PauseState>, public GameState
   Ogre::Camera* _camera;
 
   bool _exitGame;
-
+  bool _resumeGame;
   // CEGUI
   CEGUI::Window* playStateUI;
 
@@ -77,8 +78,12 @@ class PauseState : public Ogre::Singleton<PauseState>, public GameState
   CEGUI::Window* _scoreNumberTextGUI;
   CEGUI::Window* _lifeText;
   CEGUI::Window* _gameOverUI;
+  CEGUI::Window* _heart1;
+  CEGUI::Window* _heart2;
+  CEGUI::Window* _heart3;
 
-
+  bool quit(const CEGUI::EventArgs &e);
+  bool resume(const CEGUI::EventArgs &e);
 };
 
 #endif

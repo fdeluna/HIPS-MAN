@@ -53,13 +53,13 @@ public:
 	// Heredados de Ogre::Singleton.
 	static PlayState& getSingleton();
 	static PlayState* getSingletonPtr();
+	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
 	GraphVertex* nextVertx(Ogre::Vector3 direction, GraphVertex* actualVertx);
 	void movePlayer();
 	void createGUI();
-	bool save(const CEGUI::EventArgs &e);
 
-protected:
+private:
 	Ogre::Root* _root;
 	Ogre::SceneManager* _sceneMgr;
 	Ogre::Viewport* _viewport;
@@ -73,22 +73,36 @@ protected:
 
 	PacMan* pacMan;
 	int _score = 0;
-
+	float _timeGetReady = 0;
 	//ESTADOS
 	bool winBool = false;
 	bool loseBool = false;
 
 	// CEGUI
+	
+
+	bool quit(const CEGUI::EventArgs &e);
+	
+	bool save(const CEGUI::EventArgs &e);
+
 	CEGUI::Window* playStateUI;
 	CEGUI::Window* _gameOverUI;
 	CEGUI::Window* _winUI;
 	CEGUI::Window* _exitGameOver;
 	CEGUI::Window* _scoreText;
+	CEGUI::Window* _scoreTextLose;
+	CEGUI::Window* _getReadyText;
 	CEGUI::Window* _scoreTextGUI;
 	CEGUI::Window* _scoreNumberTextGUI;
 	CEGUI::Window* _lifeText;
 	CEGUI::Window*	_nameText;
-	CEGUI::Window* _save;
+	CEGUI::Window* _saveGameOver;
+	CEGUI::Window* _saveWin;
+	CEGUI::Window* _heart1;
+	CEGUI::Window* _heart2;
+	CEGUI::Window* _heart3;
+
+
 	CEGUI::Window* _turnText;
 	
 

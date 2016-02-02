@@ -26,10 +26,13 @@ void PacMan::update()
 		if (GraphVertex::checkVertex(currentVertex, "Empty"))
 		{			
 			addScore(10);
+			pillCount++;
 		}
 		else if (GraphVertex::checkVertex(currentVertex, "Pill"))
 		{
 			addScore(20);
+			pillCount++;
+
 		}
 		Scene::getSingletonPtr()->removeMapItem(currentVertex);
 	}
@@ -96,7 +99,14 @@ float PacMan::getSpeed()
 {
 	return speed;
 }
-
+int PacMan::getPillCount()
+{
+	return pillCount;
+}
+int PacMan::getLife()
+{
+	return life;
+}
 void PacMan::setScore(int points)
 {
 	score = points;
@@ -110,6 +120,10 @@ void PacMan::addScore(int points)
 void PacMan::setSpeed(float fSpeed)
 {
 	speed = fSpeed;
+}
+void PacMan::setLife(float fLife)
+{
+	life = fLife;
 }
 
 void PacMan::setDirecction(Direcction dDirection)

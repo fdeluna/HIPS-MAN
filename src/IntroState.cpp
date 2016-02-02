@@ -70,45 +70,19 @@ void
 IntroState::keyPressed
 (const OIS::KeyEvent &e)
 {
+
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(
 		static_cast<CEGUI::Key::Scan> (e.key));
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(e.text);
+
   // Transición al siguiente estado.
   // Espacio --> PlayState
-  if (e.key == OIS::KC_C) {
-	  _credits = true;
-	  exitButton->setVisible(false);
-	  playButton->setVisible(false);
-	  highscoreButton->setVisible(false);
-	  creditsButton->setVisible(false);
-	  pacmanTittle->setVisible(false);
-	  fondoCredits->setVisible(true);
-	  fondoScore->setVisible(false);
-	  select->setVisible(false);
-	  intro->setVisible(false);
-	  
-  }
-  if (e.key == OIS::KC_S) {
-	  _highscore = true;
-	  exitButton->setVisible(false);
-	  playButton->setVisible(false);
-	  highscoreButton->setVisible(false);
-	  creditsButton->setVisible(false);
-	  pacmanTittle->setVisible(false);
-	  fondoCredits->setVisible(false);
-	  fondoScore->setVisible(true);
-	  select->setVisible(false);
-	  intro->setVisible(false);
 
-  }
-  if (e.key == OIS::KC_P) {
-	  changeState(PlayState::getSingletonPtr());
 
-  }
   if (!_credits && !_highscore && e.key == OIS::KC_ESCAPE) {
 	  _exitGame = true;
   }
-  if (e.key == OIS::KC_ESCAPE && _credits) {
+  if (_credits && e.key == OIS::KC_ESCAPE) {
 
 	  exitButton->setVisible(true);
 	  playButton->setVisible(true);
@@ -118,8 +92,7 @@ IntroState::keyPressed
 	  fondoCredits->setVisible(false);
 	  fondoScore->setVisible(false);
 	  _credits = false;
-	  select->setVisible(true);
-	  intro->setVisible(true);
+	
 
   }
   if (e.key == OIS::KC_ESCAPE && _highscore) {
@@ -133,8 +106,7 @@ IntroState::keyPressed
 	  fondoCredits->setVisible(false);
 	  fondoScore->setVisible(false);
 	  _highscore = false;
-	  select->setVisible(true);
-	  intro->setVisible(true);
+
   }
 
 }
@@ -153,18 +125,24 @@ void
 IntroState::mouseMoved
 (const OIS::MouseEvent &e)
 {
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
+		e.state.X.rel, e.state.Y.rel);
 }
 
 void
 IntroState::mousePressed
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(
+		convertMouseButton(id));
 }
 
 void
 IntroState::mouseReleased
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(
+		convertMouseButton(id));
 }
 
 IntroState*
@@ -194,7 +172,17 @@ bool IntroState::quit(const CEGUI::EventArgs &e) {
 	return true;
 }
 bool IntroState::highscore(const CEGUI::EventArgs &e) {
+	_highscore = true;
 
+	exitButton->setVisible(false);
+	playButton->setVisible(false);
+	highscoreButton->setVisible(false);
+	creditsButton->setVisible(false);
+	pacmanTittle->setVisible(false);
+	fondoCredits->setVisible(false);
+	fondoScore->setVisible(true);
+
+	/*
 	_highscore = true;
 	std::ifstream scoreFile;
 	scoreFile.open("scores.txt", std::ifstream::in);
@@ -222,14 +210,26 @@ bool IntroState::highscore(const CEGUI::EventArgs &e) {
 
 	_scoreText->setText(scores.str());
 	_scoreText->setVisible(true);
-
+	*/
 	return true;
 }
 bool IntroState::credits(const CEGUI::EventArgs &e) {
 	_credits = true;
+	exitButton->setVisible(false);
+	playButton->setVisible(false);
+	highscoreButton->setVisible(false);
+	creditsButton->setVisible(false);
+	pacmanTittle->setVisible(false);
+	fondoCredits->setVisible(true);
+	fondoScore->setVisible(false);
+	/*
+	_credits = true;
 	_highscore = false;
 	return true;
+	*/
+	return true;
 }
+
 
 void IntroState::createGUI() {
 
@@ -254,14 +254,20 @@ void IntroState::createGUI() {
 		"introLayout.layout");
 	
 	exitButton = introStateUI->getChild("Exit");
+	exitButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+		CEGUI::Event::Subscriber(&IntroState::quit, this));
 	playButton = introStateUI->getChild("Play");
+	playButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+		CEGUI::Event::Subscriber(&IntroState::play, this));
 	highscoreButton = introStateUI->getChild("Score");
+	highscoreButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+		CEGUI::Event::Subscriber(&IntroState::highscore, this));
 	creditsButton = introStateUI->getChild("Credits");
+	creditsButton->subscribeEvent(CEGUI::PushButton::EventClicked,
+		CEGUI::Event::Subscriber(&IntroState::credits, this));
 	pacmanTittle = introStateUI->getChild("PacManTittle");
 	fondoCredits = introStateUI->getChild("fondoCredits");
 	fondoScore = introStateUI->getChild("fondoScore");
-	select = introStateUI->getChild("select");
-	intro = introStateUI->getChild("intro");
 
 	/*
 	fondoHighScore = introStateUI->getChild("fondoHighScore");
@@ -278,5 +284,24 @@ void IntroState::createGUI() {
 	*/
 	sheet->addChild(introStateUI);
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
+	
+}
 
+//Conversion mouse
+CEGUI::MouseButton IntroState::convertMouseButton(OIS::MouseButtonID id) {
+	CEGUI::MouseButton ceguiId;
+	switch (id) {
+	case OIS::MB_Left:
+		ceguiId = CEGUI::LeftButton;
+		break;
+	case OIS::MB_Right:
+		ceguiId = CEGUI::RightButton;
+		break;
+	case OIS::MB_Middle:
+		ceguiId = CEGUI::MiddleButton;
+		break;
+	default:
+		ceguiId = CEGUI::LeftButton;
+	}
+	return ceguiId;
 }
