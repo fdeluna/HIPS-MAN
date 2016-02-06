@@ -8,7 +8,7 @@
 #include <GraphVertex.h>
 
 GraphVertex::GraphVertex
-(const Node& data)
+(Node& data)
 :_data(data)
 {
 }
@@ -41,51 +41,56 @@ GraphVertex::adjacents() const
 GraphVertex* GraphVertex::nextVertx(Direcction direction, GraphVertex* actualVertx)
 {
 	GraphVertex *nextVertex = NULL;
-	if (actualVertx){		
+	if (actualVertx){
 		for (GraphEdge* e : actualVertx->getEdges())
 		{
-			switch (direction)
+			if (!checkVertex(e->getDestination(), "CageDoor"))
 			{
-
-			case Direcction::UP:
-
-				if (actualVertx->getData().getPosition().z < e->getDestination()->getData().getPosition().z)
-				{					
-					nextVertex = e->getDestination();					
-				}
-
-				break;
-			case Direcction::DOWN:
-				if (actualVertx->getData().getPosition().z > e->getDestination()->getData().getPosition().z)
-				{					
-					nextVertex = e->getDestination();					
-				}
-
-				break;
-			case Direcction::RIGHT:
-
-				if (actualVertx->getData().getPosition().x < e->getDestination()->getData().getPosition().x)
+				switch (direction)
 				{
-					nextVertex = e->getDestination();
-				}
 
-				break;
-			case Direcction::LEFT:
-				if (actualVertx->getData().getPosition().x > e->getDestination()->getData().getPosition().x)
-				{					
-					nextVertex = e->getDestination();
+				case Direcction::UP:
+
+					if (actualVertx->getData().getPosition().z < e->getDestination()->getData().getPosition().z)
+					{
+						nextVertex = e->getDestination();
+					}
+
+					break;
+				case Direcction::DOWN:
+					if (actualVertx->getData().getPosition().z > e->getDestination()->getData().getPosition().z)
+					{
+						nextVertex = e->getDestination();
+					}
+
+					break;
+				case Direcction::RIGHT:
+
+					if (actualVertx->getData().getPosition().x < e->getDestination()->getData().getPosition().x)
+					{
+						nextVertex = e->getDestination();
+					}
+
+					break;
+				case Direcction::LEFT:
+					if (actualVertx->getData().getPosition().x > e->getDestination()->getData().getPosition().x)
+					{
+						nextVertex = e->getDestination();
+					}
+					break;
 				}
-				break;
 			}
-		}		
+		}
 	}
 	return nextVertex;
 }
 
 bool  GraphVertex::checkVertex(GraphVertex* actualVertx, std::string type)
-{		
-	return actualVertx->getData().getType() == type ? true : false;
+{
+	bool result = false;
+	if (actualVertx)
+	{
+		result = actualVertx->getData().getType() == type;
+	}
+	return result;
 }
-
-
-

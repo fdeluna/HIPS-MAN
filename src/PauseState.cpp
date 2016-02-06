@@ -114,21 +114,21 @@ PauseState::getSingleton ()
 }
 void PauseState::createGUI() {
 
-	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+	/*CEGUI::Scheme::setDefaultResourceGroup("Schemes");
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
 	CEGUI::Font::setDefaultResourceGroup("Fonts");
 	CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 	CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
 	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
-		"TaharezLook/MouseArrow");
+		"TaharezLook/MouseArrow");*/
 
 	// load all the fonts 
-	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
+	//CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
 
 	//Sheet
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
-		"DefaultWindow", "Sheet");
+		"DefaultWindow", "Pause");
 
 	//Config Window	
 	playStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
@@ -147,8 +147,8 @@ void PauseState::createGUI() {
 	_scoreTextGUI->setVisible(false);
 	_scoreNumberTextGUI->setVisible(false);
 	_lifeText->setVisible(false); 
-	_winUI->setVisible(false);
-	_gameOverUI->setVisible(false);
+	//_winUI->setVisible(false);
+	//_gameOverUI->setVisible(false);
 	/*
 	_resume = _pauseUI->getChild("Resume");
 	_exitPause = _pauseUI->getChild("Exit");

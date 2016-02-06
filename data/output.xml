@@ -1,7 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
 <data>
 
 <graph>
-  <vertex index="0" type ="Empty">
+  <vertex index="0" type ="Empty/Pinky">
     <x>-24.398000</x> <y>-0.000000</y> <z>28.886000</z>
   </vertex>
   <vertex index="1" type ="Empty">
@@ -67,7 +69,7 @@
   <vertex index="21" type ="Empty">
     <x>14.639000</x> <y>0.000000</y> <z>28.886000</z>
   </vertex>
-  <vertex index="22" type ="Empty">
+  <vertex index="22" type ="Empty/Blynky">
     <x>24.398000</x> <y>0.000000</y> <z>28.886000</z>
   </vertex>
   <vertex index="23" type ="Empty">
@@ -130,7 +132,7 @@
   <vertex index="42" type ="Empty">
     <x>20.494000</x> <y>0.000000</y> <z>-20.464000</z>
   </vertex>
-  <vertex index="43" type ="Empty">
+  <vertex index="43" type ="Empty/Inky">
     <x>24.398000</x> <y>0.000000</y> <z>-26.386000</z>
   </vertex>
   <vertex index="44" type ="Empty">
@@ -181,7 +183,7 @@
   <vertex index="59" type ="Empty">
     <x>-20.494000</x> <y>-0.000000</y> <z>-20.464000</z>
   </vertex>
-  <vertex index="60" type ="Empty">
+  <vertex index="60" type ="Empty/Clyde">
     <x>-24.398000</x> <y>-0.000000</y> <z>-26.386000</z>
   </vertex>
   <vertex index="61" type ="Empty">
@@ -538,10 +540,10 @@
   <vertex index="178" type ="Void">
     <x>0.976000</x> <y>-0.000000</y> <z>3.224000</z>
   </vertex>
-  <vertex index="179" type ="">
+  <vertex index="179" type ="Bonus">
     <x>0.976000</x> <y>-0.000000</y> <z>-2.698000</z>
   </vertex>
-  <vertex index="180" type ="Void">
+  <vertex index="180" type ="Exit">
     <x>-0.976000</x> <y>-0.000000</y> <z>9.146000</z>
   </vertex>
   <vertex index="181" type ="GhostRespawn">
@@ -700,7 +702,7 @@
   <vertex index="232" type ="Empty">
     <x>24.398000</x> <y>0.000000</y> <z>26.912000</z>
   </vertex>
-  <vertex index="233" type ="1Empty">
+  <vertex index="233" type ="Empty">
     <x>22.446000</x> <y>0.000000</y> <z>28.886000</z>
   </vertex>
   <vertex index="234" type ="Empty">
@@ -919,10 +921,10 @@
   <vertex index="305" type ="Void">
     <x>8.783000</x> <y>-0.000000</y> <z>7.172000</z>
   </vertex>
-  <vertex index="306" type ="">
+  <vertex index="306" type ="CageDoor">
     <x>0.976000</x> <y>-0.000000</y> <z>7.172000</z>
   </vertex>
-  <vertex index="307" type ="">
+  <vertex index="307" type ="CageDoor">
     <x>-0.976000</x> <y>-0.000000</y> <z>7.172000</z>
   </vertex>
   <vertex index="308" type ="Empty">
@@ -1980,6 +1982,36 @@
   </edge>
   <edge>
     <vertex>18</vertex> <vertex>242</vertex>
+  </edge>
+  <edge>
+    <vertex>188</vertex> <vertex>195</vertex>
+  </edge>
+  <edge>
+    <vertex>194</vertex> <vertex>188</vertex>
+  </edge>
+  <edge>
+    <vertex>194</vertex> <vertex>193</vertex>
+  </edge>
+  <edge>
+    <vertex>190</vertex> <vertex>193</vertex>
+  </edge>
+  <edge>
+    <vertex>190</vertex> <vertex>192</vertex>
+  </edge>
+  <edge>
+    <vertex>197</vertex> <vertex>203</vertex>
+  </edge>
+  <edge>
+    <vertex>196</vertex> <vertex>202</vertex>
+  </edge>
+  <edge>
+    <vertex>196</vertex> <vertex>197</vertex>
+  </edge>
+  <edge>
+    <vertex>199</vertex> <vertex>202</vertex>
+  </edge>
+  <edge>
+    <vertex>199</vertex> <vertex>201</vertex>
   </edge>
 </graph>
 

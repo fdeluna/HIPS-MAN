@@ -98,11 +98,7 @@ Importer::parseScene
     
     DOMNode* node = elementRoot->getChildNodes()->item(i);
 
-    if (node->getNodeType() == DOMNode::ELEMENT_NODE) {
-      // Nodo <camera>?
-      if (XMLString::equals(node->getNodeName(), camera_ch))
-	parseCamera(node, scene);
-      else
+    if (node->getNodeType() == DOMNode::ELEMENT_NODE) {      
 	// Nodo <graph>?
 	if (XMLString::equals(node->getNodeName(), graph_ch))
 	  parseGraph(node, scene);
@@ -114,135 +110,6 @@ Importer::parseScene
   XMLString::release(&graph_ch);
 
   delete parser;
-}
-
-void
-Importer::parseCamera
-(xercesc::DOMNode* cameraNode, Scene* scene)
-{
-  // Atributos de la cámara.
-  DOMNamedNodeMap* attributes = cameraNode->getAttributes();
-  DOMNode* indexNode = attributes->getNamedItem(XMLString::transcode("index"));
-  DOMNode* fpsNode = attributes->getNamedItem(XMLString::transcode("fps"));
-
-  int camera_index = atoi(XMLString::transcode(indexNode->getNodeValue()));
-  int camera_fps = atoi(XMLString::transcode(fpsNode->getNodeValue()));
-
-  // Instanciar la cámara.
-  Camera* camera = new Camera(camera_index, camera_fps);
-
-  XMLCh* path_ch = XMLString::transcode("path");  
-
-  // Procesar el path de la cámara.
-  for (XMLSize_t i = 0; i < cameraNode->getChildNodes()->getLength(); ++i ) {
-
-    DOMNode* pathNode = cameraNode->getChildNodes()->item(i);
-
-    // Nodo <path>?
-    if (pathNode->getNodeType() == DOMNode::ELEMENT_NODE &&
-	XMLString::equals(pathNode->getNodeName(), path_ch))
-      addPathToCamera(pathNode, camera);
-
-  }
-
-  XMLString::release(&path_ch);
-
-  // Cada vez que se parsea una cámara,
-  // se añade a la escena.
-  scene->addCamera(camera);
-}
-
-void
-Importer::addPathToCamera
-(xercesc::DOMNode* pathNode, Camera *camera)
-{
-  XMLCh* position_ch = XMLString::transcode("position");
-  XMLCh* rotation_ch = XMLString::transcode("rotation");
-
-  for (XMLSize_t i = 0; i < pathNode->getChildNodes()->getLength(); ++i ) {
-
-    DOMNode* frameNode = pathNode->getChildNodes()->item(i);
-    if (frameNode->getNodeType() == DOMNode::ELEMENT_NODE ) {
-
-      // Atributos del frame.
-      DOMNamedNodeMap* attributes = frameNode->getAttributes();
-      DOMNode* indexNode = attributes->getNamedItem(XMLString::transcode("index"));
-      int frame_index = atoi(XMLString::transcode(indexNode->getNodeValue()));
-
-      Ogre::Vector3 frame_position;
-      Ogre::Vector4 frame_rotation;
-
-      for (XMLSize_t j = 0; j < frameNode->getChildNodes()->getLength(); ++j ) {
-	DOMNode* node = frameNode->getChildNodes()->item(j);
-
-	if (node->getNodeType() == DOMNode::ELEMENT_NODE) {
-	  // Nodo <position>?
-	  if (XMLString::equals(node->getNodeName(), position_ch))
-	    getFramePosition(node, &frame_position);
-	  else
-	    // Nodo <rotation>?
-	    if (XMLString::equals(node->getNodeName(), rotation_ch))
-	      getFrameRotation(node, &frame_rotation);
-	}
-      }
-
-      // Instaciar el frame.
-      Frame* frame = new Frame(frame_index, frame_position, frame_rotation);
-      // Añadirlo al path de la cámara.
-      camera->addFrameToPath(frame);
-
-    }
-
-  }
-
-  XMLString::release(&position_ch);
-  XMLString::release(&rotation_ch);
-}
-
-void
-Importer::getFramePosition
-(xercesc::DOMNode* node, Ogre::Vector3* position)
-{
-  XMLCh* x_ch = XMLString::transcode("x");  
-  XMLCh* y_ch = XMLString::transcode("y");  
-  XMLCh* z_ch = XMLString::transcode("z");  
-
-  float x = getValueFromTag(node, x_ch);
-  float y = getValueFromTag(node, y_ch);
-  float z = getValueFromTag(node, z_ch);
-
-  position->x = x;
-  position->y = y;
-  position->z = z;
-
-  XMLString::release(&x_ch);
-  XMLString::release(&y_ch);
-  XMLString::release(&z_ch);
-}
-
-void
-Importer::getFrameRotation
-(xercesc::DOMNode* node, Ogre::Vector4* rotation)
-{
-  XMLCh* x_ch = XMLString::transcode("x");  
-  XMLCh* y_ch = XMLString::transcode("y");  
-  XMLCh* z_ch = XMLString::transcode("z");  
-  XMLCh* w_ch = XMLString::transcode("w");  
-
-  float x = getValueFromTag(node, x_ch);
-  float y = getValueFromTag(node, y_ch);
-  float z = getValueFromTag(node, z_ch);
-  float w = getValueFromTag(node, w_ch);
-
-  rotation->x = x;
-  rotation->y = y;
-  rotation->z = z;
-  rotation->w = w;
-
-  XMLString::release(&x_ch);
-  XMLString::release(&y_ch);
-  XMLString::release(&z_ch);
-  XMLString::release(&w_ch);
 }
 
 void

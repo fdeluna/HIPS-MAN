@@ -16,20 +16,23 @@ PacMan::~PacMan()
 }
 
 
-void PacMan::update()
+void PacMan::update(const Ogre::FrameEvent& evt)
 {
 	// TODO SWITCH ESTADOS PACMAN
 	move();
-		
+
 	if (Scene::getSingletonPtr()->contaisMapItem(currentVertex))
 	{
+		scared = false;
 		if (GraphVertex::checkVertex(currentVertex, "Empty"))
-		{			
+		{
 			addScore(10);
 		}
 		else if (GraphVertex::checkVertex(currentVertex, "Pill"))
 		{
+			scared = true;
 			addScore(20);
+			currentVertex->getData().setType("");
 		}
 		Scene::getSingletonPtr()->removeMapItem(currentVertex);
 	}
@@ -41,22 +44,25 @@ void PacMan::move()
 {
 	if (targetVertex && sceneNode->getPosition().distance(targetVertex->getData().getPosition()) > EPSILON)
 	{
-		sceneNode->translate(direcction);
+		sceneNode->translate(direcction * speed);
 	}
 	else
-	{			
+	{		
 		if (targetVertex)
 		{
-			currentVertex = targetVertex;			
+			currentVertex = targetVertex;
 		}
 
 		if (currentVertex->getData().getIndex() == Scene::getSingletonPtr()->getRightTeleport()->getData().getIndex())
 		{
-			currentVertex = Scene::getSingletonPtr()->getLeftTeleport();			
+			
+			currentVertex = Scene::getSingletonPtr()->getLeftTeleport();
+			speed = 0.75;
 		}
 		else if (currentVertex->getData().getIndex() == Scene::getSingletonPtr()->getLeftTeleport()->getData().getIndex())
 		{
-			currentVertex = Scene::getSingletonPtr()->getRightTeleport();						
+			currentVertex = Scene::getSingletonPtr()->getRightTeleport();
+			speed = 0.75;
 		}
 		sceneNode->setPosition(currentVertex->getData().getPosition());
 
@@ -75,7 +81,7 @@ void PacMan::move()
 			targetVertex = newVertex;
 			currentDirecction = newDirecction;
 			newVertex = NULL;
-		}				
+		}
 	}
 
 	directionEnumToVector3(currentDirecction);
@@ -140,4 +146,11 @@ void PacMan::directionEnumToVector3(Direcction dDirection)
 		direcction = MOVE_LEFT;
 		break;
 	}
+}
+
+
+
+bool PacMan::scaredGhost()
+{
+	return scared;
 }

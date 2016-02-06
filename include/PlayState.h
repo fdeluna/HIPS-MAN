@@ -28,6 +28,7 @@
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "PacMan.h"
+#include "Ghost.h"
 #include "GameState.h"
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
@@ -72,7 +73,12 @@ protected:
 	Ogre::SceneNode*levelNode;
 
 	PacMan* pacMan;
+	Ghost* inky;
+	Ghost* blinky;
+	Ghost* clyde;
+	Ghost* pinky;
 	int _score = 0;
+
 
 	//ESTADOS
 	bool winBool = false;
@@ -90,6 +96,7 @@ protected:
 	CEGUI::Window*	_nameText;
 	CEGUI::Window* _save;
 	CEGUI::Window* _turnText;
+	CEGUI::Editbox* editbox;
 	
 
 

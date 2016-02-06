@@ -18,12 +18,6 @@ Scene::~Scene()
 {
 }
 
-void Scene::addCamera
-(Camera* camera)
-{
-	_cameras.push_back(camera);
-}
-
 
 Scene* Scene::getSingletonPtr()
 {
@@ -47,7 +41,7 @@ void Scene::initMap(Ogre::SceneNode* node)
 		nameEntity.str("");
 		nameNode << v->getData().getType() << "_node_" << v->getData().getIndex();
 		nameEntity << v->getData().getType() << "_entity_" << v->getData().getIndex();
-
+		std::cout << v->getData().getType() << std::endl;
 		if (v->getData().getType() == "PacmanRespawn")
 		{
 			pacManRespawn = v;
@@ -74,7 +68,7 @@ void Scene::initMap(Ogre::SceneNode* node)
 			vertexNode->setPosition(v->getData().getPosition());
 			node->addChild(vertexNode);
 		}
-		else if (v->getData().getType() == "Empty")
+		else if (v->getData().getType().find("Empty") != std::string::npos)
 		{
 			mapItems.push_back(v->getData().getIndex());
 			Ogre::Entity* vertexEntity = _sceneManager->createEntity(nameEntity.str(), "Cube1.mesh");
@@ -86,7 +80,30 @@ void Scene::initMap(Ogre::SceneNode* node)
 		}
 		else if (v->getData().getType() == "GhostRespawn")
 		{
-			ghostRespawn.push_back(v->getData().getPosition());
+			ghostRespawn.push_back(v);
+		}
+		else if (v->getData().getType() == "Exit")
+		{
+			exit = v;
+		}
+
+
+
+		if (v->getData().getType() == "Empty/Inky")
+		{
+			inkyHome = v;
+		}
+		else if (v->getData().getType() == "Empty/Blynky")
+		{
+			blinkyHome = v;
+		}
+		else if (v->getData().getType() == "Empty/Clyde")
+		{
+			clydeHome = v;
+		}
+		else if (v->getData().getType() == "Empty/Pinky")
+		{
+			pinkyHome = v;
 		}
 	}
 }
@@ -96,10 +113,20 @@ GraphVertex* Scene::getPacManRespawn()
 	return pacManRespawn;
 }
 
+GraphVertex* Scene::getGhostRespawn(int index)
+{
+	return ghostRespawn[index];
+}
+
 
 GraphVertex* Scene::getBonus()
 {
 	return bonus;
+}
+
+GraphVertex* Scene::getExit()
+{
+	return exit;
 }
 
 GraphVertex* Scene::getRightTeleport()
@@ -110,6 +137,27 @@ GraphVertex* Scene::getRightTeleport()
 GraphVertex* Scene::getLeftTeleport()
 {
 	return lTeleport;
+}
+
+
+GraphVertex* Scene::getClydeHome()
+{
+	return clydeHome;
+}
+
+GraphVertex* Scene::getInkyHome()
+{
+	return inkyHome;
+}
+
+GraphVertex* Scene::getBlinkyHome()
+{
+	return blinkyHome;
+}
+
+GraphVertex* Scene::getPinkyHome()
+{
+	return pinkyHome;
 }
 
 

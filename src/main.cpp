@@ -26,7 +26,6 @@
 #include "PauseState.h"
 #include <Importer.h>
 #include <Scene.h>
-#include <Camera.h>
 
 #include <iostream>
 

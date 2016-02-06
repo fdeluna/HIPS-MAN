@@ -13,7 +13,7 @@ public:
 	
 
 	void start();
-	virtual void update() = 0;
+	virtual void update(const Ogre::FrameEvent& evt) = 0;
 	void pause();
 	void exit();
 

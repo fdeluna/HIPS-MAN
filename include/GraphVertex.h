@@ -21,17 +21,19 @@ class GraphEdge;
 class GraphVertex
 {
  public:
-  GraphVertex (const Node& data);
+  GraphVertex (Node& data);
   ~GraphVertex ();
 
-  Node getData () const { return _data; }
+  Node getData () { return _data; }
   void addEdge (GraphEdge* pEdge) { _edges.push_back(pEdge); }
 
   std::vector<GraphEdge*> getEdges () const { return _edges; }
   std::vector<GraphVertex*> adjacents () const;
 
   static GraphVertex* nextVertx(Direcction direction, GraphVertex* actualVertx);
-  static bool checkVertex(GraphVertex* actualVertx, std::string type);
+  static GraphVertex* GraphVertex::closerNextVertx(GraphVertex* targetVertx, GraphVertex* actualVertx);
+  static bool checkVertex(GraphVertex* actualVertx, std::string type);  
+ 
   
  private:
   Node _data;

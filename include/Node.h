@@ -22,6 +22,7 @@ public:
 
 	int getIndex() const { return _index; }
 	string getType() const { return _type; }	
+	void setType(string type)  { _type = type;}
 	Ogre::Vector3 getPosition() const { return _position; }
 	operator std::string() const;
 

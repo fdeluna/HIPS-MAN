@@ -9,7 +9,6 @@
 #define SCENE_H
 
 #include <vector>
-#include <Camera.h>
 #include <Graph.h>
 #include <GraphVertex.h>
 #include <Ogre.h>
@@ -20,17 +19,21 @@ class Scene : public Ogre::Singleton<Scene>
   Scene ();
   Scene(Ogre::SceneManager* sceneManager);
   ~Scene ();
-  
-  void addCamera (Camera* camera);    
-  Graph* getGraph () const { return _graph;}  
-  std::vector<Camera*> getCameras () const { return _cameras; }
+    
+  Graph* getGraph () const { return _graph;}    
 
   void initMap(Ogre::SceneNode* node);
 
   GraphVertex* getRightTeleport();
   GraphVertex* getLeftTeleport();
   GraphVertex* getBonus();
-  GraphVertex* getPacManRespawn();
+  GraphVertex* getExit();
+  GraphVertex* getClydeHome();
+  GraphVertex* getInkyHome();
+  GraphVertex* getBlinkyHome();
+  GraphVertex* getPinkyHome();
+  GraphVertex* getPacManRespawn();  
+  GraphVertex* getGhostRespawn(int index);
 
   void removeMapItem(GraphVertex* index);
   bool contaisMapItem(GraphVertex* index);
@@ -43,15 +46,20 @@ class Scene : public Ogre::Singleton<Scene>
 
     
  private:
-  Graph *_graph;
-  std::vector<Camera*> _cameras;
+  Graph *_graph;  
   std::vector<int> mapItems;
-  std::vector<Ogre::Vector3> ghostRespawn;
+  std::vector<GraphVertex*> ghostRespawn;
 
   GraphVertex* pacManRespawn;
   GraphVertex* lTeleport;
   GraphVertex* rTeleport;
   GraphVertex* bonus;
+  GraphVertex* exit;
+
+  GraphVertex* clydeHome;
+  GraphVertex* inkyHome;
+  GraphVertex* blinkyHome;
+  GraphVertex* pinkyHome;
 
   Ogre::SceneManager* _sceneManager;
 
