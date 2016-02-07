@@ -1,17 +1,15 @@
 #include "Ghost.h"
 
-Ghost::Ghost(SceneManager* sceneManager, std::string nodeName, std::string entName, std::string mesh, GraphVertex* vertex, PacMan* pacman, GhostState gState, GraphVertex* hHome)
+Ghost::Ghost(SceneManager* sceneManager, std::string nodeName, std::string entName, std::string mesh, PacMan* pacman, GraphVertex* hHome)
 {
 	sceneNode = sceneManager->createSceneNode(nodeName);
 	entity = sceneManager->createEntity(entName, mesh);
-	sceneNode->setPosition(vertex->getData().getPosition());
 	sceneNode->attachObject(entity);
-	currentVertex = vertex;
-	previousVertex = currentVertex;
+	sceneNode->pitch(Ogre::Degree(180));
 	pacMan = pacman;
 	finalVertex = pacman->getCurrentVertex();
 	currentDirecction = Direcction::UP;
-	state = gState;
+
 	targetVertex = NULL;
 	home = hHome;
 
@@ -33,6 +31,7 @@ void Ghost::update(const Ogre::FrameEvent& evt)
 		wait();
 		break;
 	case GhostState::CHASE:
+		speed = 0.8;
 		if (time < 20)
 		{
 			chase(pacMan->getCurrentVertex());
@@ -45,7 +44,8 @@ void Ghost::update(const Ogre::FrameEvent& evt)
 		}
 		break;
 	case GhostState::SCATTER:
-		if (time < 6)
+		speed = 0.8;
+		if (time < 5)
 		{
 			chase(home);
 		}
@@ -58,19 +58,21 @@ void Ghost::update(const Ogre::FrameEvent& evt)
 
 		break;
 	case GhostState::SCARED:
-		if (time < 6)
+		speed = 0.4;
+		if (time < 10)
 		{
 			chase(pacMan->getCurrentVertex());
 		}
 		else
 		{
-			state = GhostState::SCATTER;
+			state = GhostState::CHASE;
 			currentVertex = previousVertex;
 			time = 0;
 		}
 
 		break;
 	case GhostState::DEAD:
+		speed = 1;
 		chase(Scene::getSingletonPtr()->getGhostRespawn(0));
 		if (currentVertex->getData().getIndex() == Scene::getSingletonPtr()->getGhostRespawn(0)->getData().getIndex())
 		{
@@ -81,6 +83,7 @@ void Ghost::update(const Ogre::FrameEvent& evt)
 
 		break;
 	case GhostState::EXIT:
+		speed = 0.7;
 		chase(Scene::getSingletonPtr()->getExit());
 		if (currentVertex->getData().getIndex() == Scene::getSingletonPtr()->getExit()->getData().getIndex())
 		{
@@ -97,15 +100,21 @@ void Ghost::update(const Ogre::FrameEvent& evt)
 	{
 		state = GhostState::SCARED;
 		currentVertex = previousVertex;
-		time = 0;		
+		time = 0;
 	}
 
-	if (pacMan->getCurrentVertex()->getData().getIndex() == currentVertex->getData().getIndex())
+	if (pacMan->getCurrentVertex()->getData().getIndex() == currentVertex->getData().getIndex() && state == GhostState::SCARED)
 	{
 		state = GhostState::DEAD;
-		pacMan->addScore(100);
 		currentVertex = previousVertex;
 		time = 0;
+		pacMan->addScore(100);
+	}
+	else if (!pacMan->killed() && pacMan->getCurrentVertex()->getData().getIndex() == currentVertex->getData().getIndex() && state != GhostState::SCARED && state != GhostState::DEAD)
+	{
+		pacMan->die();
+		time = 0;
+		state = GhostState::EXIT;
 	}
 }
 
@@ -139,7 +148,6 @@ void Ghost::chase(GraphVertex* objective)
 	}
 	else
 	{
-		speed = 0.75;
 		if (targetVertex)
 		{
 			previousVertex = currentVertex;
@@ -169,7 +177,6 @@ void Ghost::chase(GraphVertex* objective)
 		}
 		else
 		{
-			speed = 0.4;
 			targetVertex = futherNextVertx(objective, currentVertex, previousVertex);
 		}
 
@@ -202,29 +209,32 @@ void  Ghost::setDirecction(Direcction dDirecction)
 void Ghost::getDirecction(GraphVertex* targetVertx, GraphVertex* actualVertx)
 {
 
-	if (actualVertx->getData().getPosition().z < targetVertx->getData().getPosition().z)
+	if (targetVertx && actualVertx)
 	{
-		direcction = MOVE_UP;
-		currentDirecction = Direcction::UP;
-	}
+		if (actualVertx->getData().getPosition().z < targetVertx->getData().getPosition().z)
+		{
+			direcction = MOVE_UP;
+			currentDirecction = Direcction::UP;
+		}
 
 
-	if (actualVertx->getData().getPosition().z > targetVertx->getData().getPosition().z)
-	{
-		direcction = MOVE_DOWN;
-		currentDirecction = Direcction::DOWN;
-	}
+		if (actualVertx->getData().getPosition().z > targetVertx->getData().getPosition().z)
+		{
+			direcction = MOVE_DOWN;
+			currentDirecction = Direcction::DOWN;
+		}
 
-	if (actualVertx->getData().getPosition().x < targetVertx->getData().getPosition().x)
-	{
-		direcction = MOVE_RIGHT;
-		currentDirecction = Direcction::RIGHT;
-	}
+		if (actualVertx->getData().getPosition().x < targetVertx->getData().getPosition().x)
+		{
+			direcction = MOVE_RIGHT;
+			currentDirecction = Direcction::RIGHT;
+		}
 
-	if (actualVertx->getData().getPosition().x > targetVertx->getData().getPosition().x)
-	{
-		currentDirecction = Direcction::LEFT;
-		direcction = MOVE_LEFT;
+		if (actualVertx->getData().getPosition().x > targetVertx->getData().getPosition().x)
+		{
+			currentDirecction = Direcction::LEFT;
+			direcction = MOVE_LEFT;
+		}
 	}
 }
 
@@ -296,14 +306,13 @@ Direcction Ghost::getOppositeDirecction(Direcction dDirecction)
 	return result;
 }
 
-//
-//void Ghost::isScared()
-//{
-//	if (state != GhostState::EXIT && state != GhostState::WAIT && state != GhostState::DEAD)
-//	{
-//		state = GhostState::SCARED;
-//		targetVertex = NULL;
-//		time = 0;
-//		previousVertex = currentVertex;
-//	}
-//}
+void Ghost::init(GraphVertex* vertex, GhostState gState)
+{
+	currentVertex = vertex;
+	sceneNode->setPosition(vertex->getData().getPosition());
+	currentVertex = vertex;
+	previousVertex = currentVertex;
+	targetVertex = NULL;
+	state = gState;
+
+}

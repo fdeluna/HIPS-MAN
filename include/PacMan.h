@@ -22,25 +22,29 @@ public:
 
 	const bool  isDead();
 	int   getScore();
-	float getSpeed();	
+	int   getLife();
+
+	float getSpeed();
 	GraphVertex* getCurrentVertex(){ return currentVertex; };
+	void setCurrentVertex(GraphVertex* vertex){ currentVertex = vertex; };
 	void  setScore(int points);
 	void  addScore(int points);
 	void  setSpeed(float fSpeed);
+	void die();	
+	void init(GraphVertex* vertex);
 	void  setDirecction(Direcction dDirecction);
+	bool killed();
 	bool scaredGhost();
-	
+
 private:
 	int   life = 3;
 	int   score = 0;
 	float speed = 1;
-	bool  dead = 0;
-
+	bool  dead = 0;	
 	bool scared = false;
 
-	Ogre::Vector3 direcction = Ogre::Vector3::ZERO;
-	// MOVEMENT
-	Direcction newDirecction = Direcction::NONE;	
+	Ogre::Vector3 direcction = Ogre::Vector3::ZERO;	
+	Direcction newDirecction = Direcction::NONE;
 	Direcction currentDirecction = Direcction::NONE;
 
 	GraphVertex* newVertex;
@@ -50,7 +54,7 @@ private:
 
 	void directionEnumToVector3(Direcction dDirection);
 	void checkVertex(GraphVertex* vertex);
-	
+
 };
 
 #endif

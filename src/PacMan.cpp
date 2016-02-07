@@ -7,6 +7,7 @@ PacMan::PacMan(SceneManager* sceneManager, std::string nodeName, std::string ent
 	sceneNode->setPosition(vertex->getData().getPosition());
 	sceneNode->attachObject(entity);
 	currentVertex = vertex;
+	life = 3;
 }
 
 PacMan::~PacMan()
@@ -17,8 +18,7 @@ PacMan::~PacMan()
 
 
 void PacMan::update(const Ogre::FrameEvent& evt)
-{
-	// TODO SWITCH ESTADOS PACMAN
+{	
 	move();
 
 	if (Scene::getSingletonPtr()->contaisMapItem(currentVertex))
@@ -32,7 +32,6 @@ void PacMan::update(const Ogre::FrameEvent& evt)
 		{
 			scared = true;
 			addScore(20);
-			currentVertex->getData().setType("");
 		}
 		Scene::getSingletonPtr()->removeMapItem(currentVertex);
 	}
@@ -47,15 +46,14 @@ void PacMan::move()
 		sceneNode->translate(direcction * speed);
 	}
 	else
-	{		
+	{
 		if (targetVertex)
 		{
 			currentVertex = targetVertex;
 		}
-
 		if (currentVertex->getData().getIndex() == Scene::getSingletonPtr()->getRightTeleport()->getData().getIndex())
 		{
-			
+
 			currentVertex = Scene::getSingletonPtr()->getLeftTeleport();
 			speed = 0.75;
 		}
@@ -70,27 +68,28 @@ void PacMan::move()
 		{
 			newVertex = GraphVertex::nextVertx(newDirecction, targetVertex);
 		}
-		else{
+		else
+		{
 			targetVertex = GraphVertex::nextVertx(currentDirecction, currentVertex);
-			if (!targetVertex){
+			if (!targetVertex)
+			{
 				currentDirecction = Direcction::NONE;
 			}
 		}
 
-		if (newVertex){
+		if (newVertex)
+		{
 			targetVertex = newVertex;
 			currentDirecction = newDirecction;
 			newVertex = NULL;
 		}
 	}
-
 	directionEnumToVector3(currentDirecction);
-
 }
 
 const bool PacMan::isDead()
 {
-	return life <= 0 ? true : false;
+	return life == 0 ? true : false;
 }
 
 int PacMan::getScore()
@@ -103,6 +102,10 @@ float PacMan::getSpeed()
 	return speed;
 }
 
+int PacMan::getLife()
+{
+	return life;
+}
 void PacMan::setScore(int points)
 {
 	score = points;
@@ -117,14 +120,32 @@ void PacMan::setSpeed(float fSpeed)
 {
 	speed = fSpeed;
 }
+void PacMan::die()
+{
+	life--;
+	dead = true;
+}
+
+void PacMan::init(GraphVertex* vertex)
+{
+	currentVertex = vertex;
+	sceneNode->setPosition(vertex->getData().getPosition());
+	currentVertex = vertex;
+	targetVertex = NULL;
+	currentDirecction = Direcction::NONE;
+	newDirecction = currentDirecction;
+	dead = false;
+}
 
 void PacMan::setDirecction(Direcction dDirection)
 {
-	if (currentDirecction == Direcction::NONE){
+	if (currentDirecction == Direcction::NONE)
+	{
 		currentDirecction = dDirection;
 		newDirecction = currentDirecction;
 	}
-	else{
+	else
+	{
 		newDirecction = dDirection;
 	}
 }
@@ -148,9 +169,12 @@ void PacMan::directionEnumToVector3(Direcction dDirection)
 	}
 }
 
-
-
 bool PacMan::scaredGhost()
 {
 	return scared;
+}
+
+bool PacMan::killed()
+{
+	return dead;
 }

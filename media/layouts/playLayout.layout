@@ -4,157 +4,207 @@
     <Window type="DefaultWindow" name="DefaultWindow" >
         <Property name="Area" value="{{0,-2},{0,1},{1,-2},{1,1}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
-        <Property name="MouseCursorImage" value="TaharezLook/MouseArrow" />
-        <Window type="TaharezLook/ImageButton" name="FondoGameOver" >
-            <Property name="Area" value="{{0,-118},{0,5},{0,1227},{0,762}}" />
-            <Property name="Visible" value="false" />
-            <Property name="HoverImage" value="TaharezLook/fondoBlue" />
-            <Property name="NormalImage" value="TaharezLook/fondoBlue" />
-            <Property name="PushedImage" value="TaharezLook/fondoBlue" />
-            <Property name="DisabledImage" value="TaharezLook/fondoBlue" />
-            <Window type="TaharezLook/Button" name="Exit" >
-                <Property name="Area" value="{{0,531},{0,451},{0,676},{0,504}}" />
-                <Property name="HoverImage" value="TaharezLook/exitText" />
-                <Property name="NormalImage" value="TaharezLook/exitText" />
-                <Property name="PushedImage" value="TaharezLook/exitText" />
-                <Property name="DisabledImage" value="TaharezLook/exitText" />
-                <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
-                <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
-                <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
-                <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
-            </Window>
-            <Window type="TaharezLook/StaticImage" name="LoseTittle" >
-                <Property name="Area" value="{{0,404},{0,74},{0,793},{0,160}}" />
-                <Property name="Image" value="TaharezLook/gameOverText" />
-                <Property name="MaxSize" value="{{1,0},{1,0}}" />
-            </Window>
-            <Window type="TaharezLook/Editbox" name="NameText" >
-                <Property name="Area" value="{{0,577},{0,352},{0,739},{0,412}}" />
-                <Property name="Visible" value="false" />
-            </Window>
-            <Window type="TaharezLook/Label" name="LabelYourScore" >
-                <Property name="Area" value="{{0,377},{0,263},{0,564},{0,338}}" />
-                <Property name="Text" value="SCORE" />
-                <Property name="MaxSize" value="{{1,0},{1,0}}" />
-                <Property name="DisabledTextColour" value="FF000000" />
-            </Window>
-            <Window type="TaharezLook/Label" name="EnterName" >
-                <Property name="Area" value="{{0,8},{0,353},{0.25544,403},{0,410}}" />
-                <Property name="Text" value="PLEASE ENTER NAME:" />
-                <Property name="MaxSize" value="{{1,0},{1,0}}" />
-                <Property name="DisabledTextColour" value="FF000000" />
-            </Window>
-            <Window type="TaharezLook/Label" name="LabelScore" >
-                <Property name="Area" value="{{0,598},{0,286},{0,680},{0,318}}" />
-                <Property name="Text" value="----" />
-                <Property name="MaxSize" value="{{1,0},{1,0}}" />
-                <Property name="DisabledTextColour" value="FF000000" />
-            </Window>
-        </Window>
         <Window type="TaharezLook/Label" name="ScorePlayer" >
-            <Property name="Area" value="{{0,548},{0,661},{0,716},{0,762}}" />
+            <Property name="Area" value="{{0,551},{0,687},{0,719},{0,788}}" />
             <Property name="Text" value="SCORE" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="AutoRepeatDelay" value="0.36" />
             <Property name="DisabledTextColour" value="FFFFFFFF" />
         </Window>
         <Window type="TaharezLook/Label" name="ScoreText" >
-            <Property name="Area" value="{{0,679},{0,696},{0,807},{0,727}}" />
+            <Property name="Area" value="{{0,682},{0,722},{0,810},{0,753}}" />
             <Property name="Text" value="0" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="DisabledTextColour" value="FFFFFFFF" />
         </Window>
+        <Window type="TaharezLook/Label" name="Life" >
+            <Property name="Area" value="{{0,245},{0,687},{0,413},{0,788}}" />
+            <Property name="Text" value="LIFES:  " />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="AutoRepeatDelay" value="0.36" />
+            <Property name="DisabledTextColour" value="FFFFFFFF" />
+        </Window>
+        <Window type="TaharezLook/StaticText" name="GetReady" >
+            <Property name="Area" value="{{0,317},{0,229},{0,719},{0,465}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="HorzFormatting" value="CentreAligned" />
+            <Property name="HorzScrollPageSize" value="390" />
+            <Property name="VertScrollPageSize" value="224" />
+        </Window>
+        <Window type="TaharezLook/StaticImage" name="1heart" >
+            <Property name="Area" value="{{0,396},{0,714},{0,449},{0,765}}" />
+            <Property name="Image" value="TaharezLook/heartImage" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        </Window>
+        <Window type="TaharezLook/StaticImage" name="2heart" >
+            <Property name="Area" value="{{0,450},{0,715},{0,499},{0,766}}" />
+            <Property name="Image" value="TaharezLook/heartImage" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        </Window>
+        <Window type="TaharezLook/StaticImage" name="3heart" >
+            <Property name="Area" value="{{0,501},{0,716},{0,553},{0,765}}" />
+            <Property name="Image" value="TaharezLook/heartImage" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        </Window>
         <Window type="TaharezLook/ImageButton" name="FondoWin" >
-            <Property name="Area" value="{{0,-44},{0,3},{0.0734375,1180},{0.0805556,694}}" />
+            <Property name="Area" value="{{0,-118},{0,5},{0,1227},{0,762}}" />
             <Property name="Visible" value="false" />
-            <Property name="HoverImage" value="TaharezLook/fondoBlue" />
-            <Property name="NormalImage" value="TaharezLook/fondoBlue" />
-            <Property name="PushedImage" value="TaharezLook/fondoBlue" />
-            <Property name="DisabledImage" value="TaharezLook/fondoBlue" />
-            <Window type="TaharezLook/Label" name="LabelYourScore" >
-                <Property name="Area" value="{{0,377},{0,263},{0,564},{0,338}}" />
-                <Property name="Text" value="SCORE" />
-                <Property name="MaxSize" value="{{1,0},{1,0}}" />
-                <Property name="DisabledTextColour" value="FF000000" />
-            </Window>
-            <Window type="TaharezLook/Label" name="LabelScore" >
-                <Property name="Area" value="{{0,598},{0,286},{0,680},{0,318}}" />
-                <Property name="Text" value="----" />
-                <Property name="MaxSize" value="{{1,0},{1,0}}" />
-                <Property name="DisabledTextColour" value="FF000000" />
-            </Window>
-            <Window type="TaharezLook/Label" name="EnterName" >
-                <Property name="Area" value="{{0,8},{0,353},{0.25544,403},{0,410}}" />
-                <Property name="Text" value="PLEASE ENTER NAME:" />
-                <Property name="MaxSize" value="{{1,0},{1,0}}" />
-                <Property name="DisabledTextColour" value="FF000000" />
-            </Window>
+            <Property name="MouseCursorImage" value="TaharezLook/cursor" />
             <Window type="TaharezLook/Button" name="Save" >
-                <Property name="Area" value="{{0,523},{0,474},{-0.003188,676},{-0.0148459,536}}" />
-                <Property name="HoverImage" value="TaharezLook/exitText" />
+                <Property name="Area" value="{{0,567},{0,476},{0,712},{0,529}}" />
+                <Property name="HoverImage" value="TaharezLook/exitTextPushed" />
                 <Property name="NormalImage" value="TaharezLook/exitText" />
                 <Property name="PushedImage" value="TaharezLook/exitText" />
                 <Property name="DisabledImage" value="TaharezLook/exitText" />
                 <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
                 <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
                 <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
                 <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
             </Window>
-            <Window type="TaharezLook/StaticImage" name="WinTittle" >
-                <Property name="Area" value="{{0,430},{0,69},{0,771},{0,156}}" />
-                <Property name="Image" value="TaharezLook/youWinText" />
+            <Window type="TaharezLook/Label" name="LabelYourScore" >
+                <Property name="Area" value="{{0,511},{0,260},{0,698},{0,335}}" />
+                <Property name="Text" value="SCORE" />
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
-                <Property name="BackgroundColours" value="tl:00FFFFFF tr:00FFFFFF bl:00FFFFFF br:00FFFFFF" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="DisabledTextColour" value="FF000000" />
+            </Window>
+            <Window type="TaharezLook/Label" name="EnterName" >
+                <Property name="Area" value="{{0,460},{0,328},{0.25544,479},{0,385}}" />
+                <Property name="Text" value="PLEASE ENTER NAME:" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="DisabledTextColour" value="FF000000" />
+            </Window>
+            <Window type="TaharezLook/Label" name="LabelScore" >
+                <Property name="Area" value="{{0,671},{0,281},{0,753},{0,313}}" />
+                <Property name="Text" value="----" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="DisabledTextColour" value="FF000000" />
+            </Window>
+            <Window type="TaharezLook/StaticImage" name="recuadroNameText" >
+                <Property name="Area" value="{{0,557},{0,394},{0,718},{0,444}}" />
+                <Property name="Image" value="TaharezLook/recuadroNameText" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
             </Window>
             <Window type="TaharezLook/Editbox" name="NameText" >
-                <Property name="Area" value="{{0,577},{0,352},{0,739},{0,412}}" />
-                <Property name="Visible" value="false" />
+                <Property name="Area" value="{{0,558},{0,393},{0,720},{0,442}}" />
+                <Property name="UpdateMode" value="Always" />
+                <Property name="TextFormatting" value="CentreAligned" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="RestoreOldCapture" value="true" />
+                <Property name="DistributeCapturedInputs" value="true" />
+                <Property name="MouseInputPropagationEnabled" value="true" />
+            </Window>
+            <Window type="TaharezLook/StaticImage" name="WinTittle" >
+                <Property name="Area" value="{{0,447},{0,67},{0,836},{0,153}}" />
+                <Property name="Image" value="TaharezLook/youWinText" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
             </Window>
         </Window>
         <Window type="TaharezLook/StaticImage" name="FondoPause" >
-            <Property name="Area" value="{{0,-84},{0,29},{0,1234},{0,739}}" />
+            <Property name="Area" value="{{0,-91},{0,27},{0,1227},{0,737}}" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="Visible" value="false" />
+            <Property name="MouseCursorImage" value="TaharezLook/cursor" />
             <Property name="BackgroundColours" value="tl:00000000 tr:00000000 bl:00000000 br:00000000" />
             <Window type="TaharezLook/Button" name="Exit" >
-                <Property name="Area" value="{{0,521},{0,386},{0,656},{0,452}}" />
-                <Property name="HoverImage" value="TaharezLook/whiteButtonUp" />
+                <Property name="Area" value="{{0,524},{0,431},{0,659},{0,497}}" />
+                <Property name="HoverImage" value="TaharezLook/exitTextPushed" />
                 <Property name="NormalImage" value="TaharezLook/exitText" />
                 <Property name="PushedImage" value="TaharezLook/exitText" />
                 <Property name="DisabledImage" value="TaharezLook/exitText" />
                 <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
                 <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
                 <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
                 <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
             </Window>
             <Window type="TaharezLook/Button" name="Resume" >
-                <Property name="Area" value="{{0,492},{0,290},{0,681},{0,360}}" />
-                <Property name="HoverImage" value="TaharezLook/resumeText" />
+                <Property name="Area" value="{{0,495},{0,335},{0,684},{0,405}}" />
+                <Property name="HoverImage" value="TaharezLook/resumeTextPushed" />
                 <Property name="NormalImage" value="TaharezLook/resumeText" />
                 <Property name="PushedImage" value="TaharezLook/resumeText" />
                 <Property name="DisabledImage" value="TaharezLook/resumeText" />
                 <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
                 <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
                 <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
                 <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
             </Window>
             <Window type="TaharezLook/Button" name="labelPause" >
                 <Property name="Area" value="{{0,395},{0,77},{0,796},{0,154}}" />
-                <Property name="HoverImage" value="TaharezLook/whiteButtonUp" />
+                <Property name="HoverImage" value="TaharezLook/gamePausedTittle" />
                 <Property name="NormalImage" value="TaharezLook/gamePausedTittle" />
                 <Property name="DisabledImage" value="TaharezLook/gamePausedTittle" />
                 <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
                 <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
                 <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
                 <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
             </Window>
         </Window>
-        <Window type="TaharezLook/Label" name="Life" >
-            <Property name="Area" value="{{0,323},{0,660},{0,491},{0,761}}" />
-            <Property name="Text" value="LIFES:  " />
-            <Property name="MaxSize" value="{{1,0},{1,0}}" />
-            <Property name="AutoRepeatDelay" value="0.36" />
-            <Property name="DisabledTextColour" value="FFFFFFFF" />
+        <Window type="TaharezLook/ImageButton" name="FondoGameOver" >
+            <Property name="Area" value="{{0,-118},{0,5},{0,1227},{0,762}}" />
+            <Property name="Visible" value="false" />
+            <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+            <Window type="TaharezLook/Button" name="Exit" >
+                <Property name="Area" value="{{0,565},{0,474},{0,710},{0,527}}" />
+                <Property name="HoverImage" value="TaharezLook/exitTextPushed" />
+                <Property name="NormalImage" value="TaharezLook/exitText" />
+                <Property name="PushedImage" value="TaharezLook/exitText" />
+                <Property name="DisabledImage" value="TaharezLook/exitText" />
+                <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+                <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+                <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+            </Window>
+            <Window type="TaharezLook/StaticImage" name="LoseTittle" >
+                <Property name="Area" value="{{0,446},{0,65},{0,835},{0,151}}" />
+                <Property name="Image" value="TaharezLook/gameOverText" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+            </Window>
+            <Window type="TaharezLook/Label" name="LabelYourScore" >
+                <Property name="Area" value="{{0,511},{0,260},{0,698},{0,335}}" />
+                <Property name="Text" value="SCORE" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="DisabledTextColour" value="FF000000" />
+            </Window>
+            <Window type="TaharezLook/Label" name="EnterName" >
+                <Property name="Area" value="{{0,463},{0,327},{0.25544,482},{0,384}}" />
+                <Property name="Text" value="PLEASE ENTER NAME:" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="DisabledTextColour" value="FF000000" />
+            </Window>
+            <Window type="TaharezLook/Label" name="LabelScore" >
+                <Property name="Area" value="{{0,671},{0,281},{0,753},{0,313}}" />
+                <Property name="Text" value="----" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="DisabledTextColour" value="FF000000" />
+            </Window>
+            <Window type="TaharezLook/StaticImage" name="recuadroNameText" >
+                <Property name="Area" value="{{0,557},{0,394},{0,718},{0,444}}" />
+                <Property name="Image" value="TaharezLook/recuadroNameText" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+            </Window>
+            <Window type="TaharezLook/Editbox" name="NameText" >
+                <Property name="Area" value="{{0,558},{0,393},{0,720},{0,442}}" />
+                <Property name="UpdateMode" value="Always" />
+                <Property name="TextFormatting" value="CentreAligned" />
+                <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+                <Property name="RestoreOldCapture" value="true" />
+                <Property name="DistributeCapturedInputs" value="true" />
+                <Property name="MouseInputPropagationEnabled" value="true" />
+            </Window>
         </Window>
     </Window>
 </GUILayout>

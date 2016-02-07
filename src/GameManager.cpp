@@ -20,7 +20,10 @@ GameManager::~GameManager()
 	if (_root)
 		delete _root;
 }
-
+InputManager* GameManager::getInputManager()
+{
+	return _inputMgr;
+}
 void
 GameManager::start
 (GameState* state)

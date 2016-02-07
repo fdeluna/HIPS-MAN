@@ -10,7 +10,7 @@
 class Ghost : public GameObject
 {
 public:
-	Ghost(SceneManager* sceneManager, std::string nodeName, std::string entName, std::string mesh, GraphVertex* vertex, PacMan* pacman, GhostState gState, GraphVertex* hHome);
+	Ghost(SceneManager* sceneManager, std::string nodeName, std::string entName, std::string mesh, PacMan* pacman,GraphVertex* hHome);
 	Ghost(){};
 	~Ghost();
 
@@ -26,6 +26,8 @@ public:
 	const bool  isDead();	
 	void Ghost::isScared();
 	float getSpeed();	
+	GraphVertex* getCurrentVertex(){ return currentVertex; };
+	void init(GraphVertex* vertex,GhostState gState);
 	void  setSpeed(float fSpeed);	
 	void  setDirecction(Direcction dDirecction);
 

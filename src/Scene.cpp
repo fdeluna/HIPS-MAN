@@ -87,8 +87,6 @@ void Scene::initMap(Ogre::SceneNode* node)
 			exit = v;
 		}
 
-
-
 		if (v->getData().getType() == "Empty/Inky")
 		{
 			inkyHome = v;

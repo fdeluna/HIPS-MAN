@@ -248,19 +248,19 @@
     <Image autoScaled="true" height="92" name="fondowhite" width="92" xPos="703" yPos="224" />
     <Image height="21" name="RighArrowWhite" width="22" xPos="771" yPos="508" />
     <Image autoScaled="true" height="176" name="fondoNegro" width="115" xPos="902" yPos="54" />
-    <Image height="166" name="fondoGrande" width="174" xPos="526" yPos="181" />
+    <Image height="166" name="fondoGrande" width="174" xPos="567" yPos="184" />
     <Image height="50" name="BattleTittle" width="178" xPos="518" yPos="399" />
     <Image height="53" name="TanksTittle" width="158" xPos="526" yPos="450" />
     <Image height="49" name="winTittle" width="54" xPos="547" yPos="453" />
     <Image height="17" name="LoseTittle" width="122" xPos="899" yPos="514" />
     <Image height="44" name="scoreText" width="156" xPos="0" yPos="46" />
     <Image height="60" name="PacManTittle" width="266" xPos="0" yPos="184" />
-    <Image height="44" name="creditsText" width="223" xPos="0" yPos="92" />
+    <Image height="44" name="creditsText" width="204" xPos="0" yPos="92" />
     <Image height="44" name="exitText" width="108" xPos="0" yPos="138" />
-    <Image height="44" name="playTextPushed" width="154" xPos="0" yPos="246" />
-    <Image height="44" name="scoreTextPushed" width="186" xPos="0" yPos="292" />
-    <Image height="44" name="creditsTextPushed" width="233" xPos="0" yPos="338" />
-    <Image height="44" name="exitTextPushed" width="139" xPos="0" yPos="384" />
+    <Image height="44" name="playTextPushed" width="125" xPos="0" yPos="246" />
+    <Image height="44" name="scoreTextPushed" width="157" xPos="0" yPos="292" />
+    <Image height="44" name="creditsTextPushed" width="205" xPos="0" yPos="339" />
+    <Image height="44" name="exitTextPushed" width="109" xPos="0" yPos="386" />
     <Image height="65" name="select" width="46" xPos="172" yPos="0" />
     <Image height="85" name="move" width="60" xPos="225" yPos="0" />
     <Image height="36" name="enter" width="54" xPos="313" yPos="0" />
@@ -273,4 +273,7 @@
     <Image height="114" name="fer" width="109" xPos="2" yPos="431" />
     <Image height="115" name="luis" width="121" xPos="131" yPos="431" />
     <Image height="28" name="esc" width="32" xPos="313" yPos="43" />
+    <Image height="19" name="cursor" width="19" xPos="371" yPos="2" />
+    <Image height="44" name="resumeTextPushed" width="187" xPos="347" yPos="246" />
+    <Image height="35" name="recuadroNameText" width="92" xPos="314" yPos="85" />
 </Imageset>
