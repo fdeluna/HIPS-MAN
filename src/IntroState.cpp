@@ -92,7 +92,6 @@ IntroState::keyPressed
 	  fondoCredits->setVisible(false);
 	  fondoScore->setVisible(false);
 	  _credits = false;
-	
 
   }
   if (e.key == OIS::KC_ESCAPE && _highscore) {
@@ -182,8 +181,7 @@ bool IntroState::highscore(const CEGUI::EventArgs &e) {
 	fondoCredits->setVisible(false);
 	fondoScore->setVisible(true);
 
-	/*
-	_highscore = true;
+
 	std::ifstream scoreFile;
 	scoreFile.open("scores.txt", std::ifstream::in);
 	std::stringstream scores;
@@ -205,12 +203,11 @@ bool IntroState::highscore(const CEGUI::EventArgs &e) {
 
 	for (std::pair<int, std::string> p : vectorPairs)
 	{
-		scores << p.second << ".......... " << p.first << "\n";
+		scores << p.second << "................................................ " << p.first << "\n";
 	}
 
 	_scoreText->setText(scores.str());
 	_scoreText->setVisible(true);
-	*/
 	return true;
 }
 bool IntroState::credits(const CEGUI::EventArgs &e) {
@@ -252,7 +249,7 @@ void IntroState::createGUI() {
 
 	introStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"introLayout.layout");
-	
+
 	exitButton = introStateUI->getChild("Exit");
 	exitButton->subscribeEvent(CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&IntroState::quit, this));
@@ -268,6 +265,7 @@ void IntroState::createGUI() {
 	pacmanTittle = introStateUI->getChild("PacManTittle");
 	fondoCredits = introStateUI->getChild("fondoCredits");
 	fondoScore = introStateUI->getChild("fondoScore");
+	_scoreText = fondoScore->getChild("scoreText");
 
 	/*
 	fondoHighScore = introStateUI->getChild("fondoHighScore");

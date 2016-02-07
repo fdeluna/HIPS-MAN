@@ -104,6 +104,8 @@ private:
 	CEGUI::Window* _scoreNumberTextGUI;
 	CEGUI::Window* _lifeText;
 	CEGUI::Window*	_nameText;
+	CEGUI::Window*	_nameTextLose;
+
 	CEGUI::Window* _saveGameOver;
 	CEGUI::Window* _saveWin;
 	CEGUI::Window* _heart1;
@@ -112,7 +114,6 @@ private:
 
 
 	CEGUI::Window* _turnText;
-	CEGUI::Editbox* editbox;
 	
 
 

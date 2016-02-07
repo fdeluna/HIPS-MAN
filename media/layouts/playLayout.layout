@@ -92,6 +92,7 @@
             <Window type="TaharezLook/Editbox" name="NameText" >
                 <Property name="Area" value="{{0,558},{0,393},{0,720},{0,442}}" />
                 <Property name="UpdateMode" value="Always" />
+                <Property name="MaxTextLength" value="3" />
                 <Property name="TextFormatting" value="CentreAligned" />
                 <Property name="MouseCursorImage" value="TaharezLook/cursor" />
                 <Property name="RestoreOldCapture" value="true" />
@@ -199,6 +200,7 @@
             <Window type="TaharezLook/Editbox" name="NameText" >
                 <Property name="Area" value="{{0,558},{0,393},{0,720},{0,442}}" />
                 <Property name="UpdateMode" value="Always" />
+                <Property name="MaxTextLength" value="3" />
                 <Property name="TextFormatting" value="CentreAligned" />
                 <Property name="MouseCursorImage" value="TaharezLook/cursor" />
                 <Property name="RestoreOldCapture" value="true" />

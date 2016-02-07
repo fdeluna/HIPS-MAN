@@ -71,6 +71,7 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   CEGUI::Window* fondoScore;
   CEGUI::Window* select;
   CEGUI::Window* intro;
+  CEGUI::Window* _scoreText;
 
 
   bool _play;
@@ -79,7 +80,6 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
 
 
   float _timeSinceLastFrame;
-  CEGUI::Window* _scoreText;
 
 
   bool play(const CEGUI::EventArgs &e);
