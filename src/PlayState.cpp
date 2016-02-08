@@ -192,7 +192,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
 		_lifeText->setVisible(false);
 		_heart1->setVisible(false);
 		_heart2->setVisible(false);
-		_heart3->setVisible(false);				
+		_heart3->setVisible(false);
 		gameState = GameFlow::GAMEOVER;
 	}
 
@@ -254,6 +254,8 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_scoreTextGUI->setVisible(false);
 		_scoreNumberTextGUI->setVisible(false);
 		_lifeText->setVisible(false);
+		_winUI->setVisible(false);
+		_gameOverUI->setVisible(false);
 		_heart1->setVisible(false);
 		_heart2->setVisible(false);
 		_heart3->setVisible(false);
@@ -263,9 +265,9 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (e.key == OIS::KC_W)
 	{
 		//pacMan->setLife(0);
-		_winUI->setVisible(true);
+		//_winUI->setVisible(true);
 	}
-
+	/*
 	if (e.key == OIS::KC_L)
 	{
 		loseBool = true;
@@ -279,6 +281,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_heart2->setVisible(false);
 		_heart3->setVisible(false);
 	}
+	*/
 
 	if (winBool && e.key == OIS::KC_ESCAPE)
 	{
@@ -355,15 +358,34 @@ bool PlayState::quit(const CEGUI::EventArgs &e)
 bool PlayState::save(const CEGUI::EventArgs &e)
 {
 	//ReadScores
-	/*
+
 	std::ofstream _scoresTXT;
 	_scoresTXT.open("scores.txt", std::ofstream::app);
 
 	std::stringstream txt;
-	txt << _nameText->getText() << " / " << _score << "\n";
+	if (winBool){
+		if (_nameText->getText().size() == 0){
+			txt << "___" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
+		}
+		else if (_nameText->getText().size() == 1){
+			txt << "__" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
+		}
+		else if (_nameText->getText().size() == 2){
+			txt << "_" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
+		}
+		else{
+			txt << _nameText->getText() << " / " << pacMan->getScore() << "\n";
+		}
+
+
+	}
+	else{
+		txt << _nameTextLose->getText() << " / " << pacMan->getScore() << "\n";
+
+	}
 
 	_scoresTXT << txt.str();
-	*/
+
 
 	changeState(IntroState::getSingletonPtr());
 	return true;
@@ -372,19 +394,37 @@ bool PlayState::save(const CEGUI::EventArgs &e)
 void PlayState::createGUI()
 {
 
+
+	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
+	CEGUI::Font::setDefaultResourceGroup("Fonts");
+	CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+	CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
+		"TaharezLook/MouseArrow");
+
+	// load all the fonts 
+	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
+
 	//Sheet
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
-		"DefaultWindow", "PlayState");
+		"DefaultWindow", "Sheet");
 
 	//Config Window	
 	playStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"playLayout.layout");
+
+
+
+
 	_gameOverUI = playStateUI->getChild("FondoGameOver");
 	_winUI = playStateUI->getChild("FondoWin");
 	_scoreText = _winUI->getChild("LabelScore");
 	_scoreTextLose = _gameOverUI->getChild("LabelScore");
 	_getReadyText = playStateUI->getChild("GetReady");
 	_nameText = _winUI->getChild("NameText");
+	_nameTextLose = _gameOverUI->getChild("NameText");
 	_scoreTextGUI = playStateUI->getChild("ScoreText");
 	_scoreTextGUI->setText("SCORE:");
 	_scoreNumberTextGUI = playStateUI->getChild("ScorePlayer");
@@ -404,6 +444,23 @@ void PlayState::createGUI()
 	_winUI->setVisible(false);
 	_gameOverUI->setVisible(false);
 
+	/*
+	_resume->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::resume, this));
+	_exitPause->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::quit, this));
+	_retry->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::retry, this));
+	_exitGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::quit, this));
+
+	_save->subscribeEvent(CEGUI::PushButton::EventClicked,
+	CEGUI::Event::Subscriber(&PlayState::save, this));
+
+	_winUI->setVisible(false);
+	_pauseUI->setVisible(false);
+	_gameOverUI->setVisible(false);
+	*/
 	sheet->addChild(playStateUI);
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);

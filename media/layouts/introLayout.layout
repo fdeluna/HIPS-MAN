@@ -105,12 +105,12 @@
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
             </Window>
             <Window type="TaharezLook/StaticText" name="scoreText" >
-                <Property name="Area" value="{{0,298},{0,152},{0,850},{0,596}}" />
+                <Property name="Area" value="{{0,246},{0,34},{0,798},{0,684}}" />
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Property name="HorzFormatting" value="WordWrapCentreAligned" />
                 <Property name="VertFormatting" value="TopAligned" />
                 <Property name="HorzScrollPageSize" value="540" />
-                <Property name="VertScrollPageSize" value="432" />
+                <Property name="VertScrollPageSize" value="638" />
             </Window>
         </Window>
     </Window>
