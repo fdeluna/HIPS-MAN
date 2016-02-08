@@ -152,23 +152,11 @@ bool PauseState::resume(const CEGUI::EventArgs &e) {
 	return true;
 }
 bool PauseState::quit(const CEGUI::EventArgs &e) {
-	_exitGame = true;
+	pushState(IntroState::getSingletonPtr());
 	return true;
 }
-void PauseState::createGUI() {
-
-	/*CEGUI::Scheme::setDefaultResourceGroup("Schemes");
-	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
-	CEGUI::Font::setDefaultResourceGroup("Fonts");
-	CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
-	CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
-	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
-	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
-		"TaharezLook/MouseArrow");*/
-
-	// load all the fonts 
-	//CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
-
+void PauseState::createGUI() 
+{
 	//Sheet
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
 		"DefaultWindow", "Pause");

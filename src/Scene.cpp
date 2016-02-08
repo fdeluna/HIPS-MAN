@@ -61,7 +61,7 @@ void Scene::initMap(Ogre::SceneNode* node)
 		else if (v->getData().getType() == "Pill")
 		{
 			mapItems.push_back(v->getData().getIndex());
-			Ogre::Entity* vertexEntity = _sceneManager->createEntity(nameEntity.str(), "Cube1.mesh");
+			Ogre::Entity* vertexEntity = _sceneManager->createEntity(nameEntity.str(), "ball.mesh");
 			Ogre::SceneNode* vertexNode = _sceneManager->createSceneNode(nameNode.str());
 			vertexNode->attachObject(vertexEntity);
 			vertexNode->setScale(1, 1, 1);
@@ -71,10 +71,10 @@ void Scene::initMap(Ogre::SceneNode* node)
 		else if (v->getData().getType().find("Empty") != std::string::npos)
 		{
 			mapItems.push_back(v->getData().getIndex());
-			Ogre::Entity* vertexEntity = _sceneManager->createEntity(nameEntity.str(), "Cube1.mesh");
+			Ogre::Entity* vertexEntity = _sceneManager->createEntity(nameEntity.str(), "ball.mesh");
 			Ogre::SceneNode* vertexNode = _sceneManager->createSceneNode(nameNode.str());
 			vertexNode->attachObject(vertexEntity);
-			vertexNode->setScale(1, 1, 1);
+			vertexNode->setScale(0.5, 0.5, 0.5);
 			vertexNode->setPosition(v->getData().getPosition());
 			node->addChild(vertexNode);
 		}

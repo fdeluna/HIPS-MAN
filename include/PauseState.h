@@ -26,6 +26,7 @@
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "GameState.h"
+#include "IntroState.h"
 
 class PauseState : public Ogre::Singleton<PauseState>, public GameState
 {

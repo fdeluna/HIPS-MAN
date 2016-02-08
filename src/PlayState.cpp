@@ -1,9 +1,4 @@
 #include "PlayState.h"
-#include "PauseState.h"
-#include "IntroState.h"
-
-#include <Importer.h>
-#include <Scene.h>
 
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
@@ -68,16 +63,18 @@ PlayState::enter()
 	clyde = new Ghost(_sceneMgr, "ClydeNode", "ClydeEntity", "Ghost.mesh", pacMan, scene->getClydeHome());
 	pinky = new Ghost(_sceneMgr, "PinkyNode", "PinkyEntity", "Ghost.mesh", pacMan, scene->getPinkyHome());
 
-	pacMan->getSceneNode()->setScale(1.5, 1.5, 1.5);
-	/*inky->getSceneNode()->setScale(0.06, 0.06, 0.06);
-	blinky->getSceneNode()->setScale(0.06, 0.06, 0.06);
-	clyde->getSceneNode()->setScale(0.06, 0.06, 0.06);
-	pinky->getSceneNode()->setScale(0.06, 0.06, 0.06);*/
+	pacMan->getSceneNode()->setScale(1.5, 1.5, 1.5);	
 	graphNode->addChild(pacMan->getSceneNode());
 	graphNode->addChild(inky->getSceneNode());
 	graphNode->addChild(blinky->getSceneNode());
 	graphNode->addChild(clyde->getSceneNode());
 	graphNode->addChild(pinky->getSceneNode());
+	
+
+	inky->setGhostMaterial("RedGhost");
+	pinky->setGhostMaterial("PinkGhost");
+	clyde->setGhostMaterial("ClydeGhost");
+	blinky->setGhostMaterial("BlueGhost");
 
 	// add two lights
 	Ogre::SceneNode* lights = _sceneMgr->createSceneNode("Lights");
@@ -136,27 +133,27 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
 		blinky->init(scene->getGhostRespawn(1), GhostState::EXIT);
 		clyde->init(scene->getGhostRespawn(2), GhostState::EXIT);
 		pinky->init(scene->getExit(), GhostState::SCATTER);
-		pacMan->init(scene->getPacManRespawn());
-		if (_timeGetReady > 2)
-		{
-			_getReadyText->setVisible(false);
-			gameState = GameFlow::PLAY;
-		}
+		pacMan->init(scene->getPacManRespawn());							
+		gameState = GameFlow::PLAY;
+		
 		break;
 
 	case GameFlow::PLAY:
-		pacMan->update(evt);
-		inky->update(evt);
-		blinky->update(evt);
-		clyde->update(evt);
-		pinky->update(evt);
-
-		if (pacMan->killed())
+		if (_timeGetReady > 2)
 		{
-			std::cout << "killed" << std::endl;
-			gameState = GameFlow::INIT;
-			_getReadyText->setVisible(true);
-			_timeGetReady = 0;
+			inky->update(evt);
+			blinky->update(evt);
+			clyde->update(evt);
+			pinky->update(evt);
+			pacMan->update(evt);
+			_getReadyText->setVisible(false);
+
+			if (pacMan->killed())
+			{				
+				gameState = GameFlow::INIT;
+				_getReadyText->setVisible(true);
+				_timeGetReady = 0;
+			}
 		}
 		break;
 	case GameFlow::WIN:
@@ -184,9 +181,8 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
 		_heart3->setVisible(false);
 		gameState = GameFlow::WIN;
 
-	}
-
-	if (pacMan->isDead())
+	} 
+	else if (pacMan->isDead())
 	{
 		loseBool = true;
 		graphNode->setVisible(false);
@@ -208,15 +204,6 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
 	{
 		_heart2->setVisible(false);
 
-	}
-
-	if (_timeGetReady > 4){
-		_getReadyText->setVisible(false);
-		pacMan->update(evt);
-		inky->update(evt);
-		blinky->update(evt);
-		clyde->update(evt);
-		pinky->update(evt);
 	}
 
 	_scoreText->setText(scoreString.str());
@@ -399,8 +386,10 @@ void PlayState::createGUI()
 	_getReadyText = playStateUI->getChild("GetReady");
 	_nameText = _winUI->getChild("NameText");
 	_scoreTextGUI = playStateUI->getChild("ScoreText");
+	_scoreTextGUI->setText("SCORE:");
 	_scoreNumberTextGUI = playStateUI->getChild("ScorePlayer");
 	_lifeText = playStateUI->getChild("Life");
+	_lifeText->setText("LIVES:");
 	_getReadyText->setText("GET READY");
 	_saveWin = _winUI->getChild("Save");
 	_saveWin->subscribeEvent(CEGUI::PushButton::EventClicked,

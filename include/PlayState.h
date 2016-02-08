@@ -27,10 +27,16 @@
 #include <Scene.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
+#include <Importer.h>
+#include <Scene.h>
+
+
 #include "PacMan.h"
 #include "Ghost.h"
 #include "GameState.h"
 #include "Enums.h"
+#include "PauseState.h"
+#include "IntroState.h"
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {

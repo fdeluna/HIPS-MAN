@@ -129,12 +129,11 @@ void PacMan::die()
 void PacMan::init(GraphVertex* vertex)
 {
 	currentVertex = vertex;
-	sceneNode->setPosition(vertex->getData().getPosition());
-	currentVertex = vertex;
-	targetVertex = NULL;
+	sceneNode->setPosition(vertex->getData().getPosition());	
 	currentDirecction = Direcction::NONE;
 	newDirecction = currentDirecction;
-	dead = false;
+	targetVertex = NULL;	
+	dead = false;	
 }
 
 void PacMan::setDirecction(Direcction dDirection)

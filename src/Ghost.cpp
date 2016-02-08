@@ -31,7 +31,7 @@ void Ghost::update(const Ogre::FrameEvent& evt)
 		wait();
 		break;
 	case GhostState::CHASE:
-		speed = 0.8;
+		speed = 0.75;
 		if (time < 20)
 		{
 			chase(pacMan->getCurrentVertex());
@@ -44,7 +44,7 @@ void Ghost::update(const Ogre::FrameEvent& evt)
 		}
 		break;
 	case GhostState::SCATTER:
-		speed = 0.8;
+		speed = 0.75;
 		if (time < 5)
 		{
 			chase(home);
@@ -62,22 +62,26 @@ void Ghost::update(const Ogre::FrameEvent& evt)
 		if (time < 10)
 		{
 			chase(pacMan->getCurrentVertex());
+			entity->setMaterialName("ScaredGhost");
 		}
 		else
 		{
 			state = GhostState::CHASE;
 			currentVertex = previousVertex;
 			time = 0;
+			entity->setMaterialName(ghostMaterial);
 		}
 
 		break;
 	case GhostState::DEAD:
 		speed = 1;
 		chase(Scene::getSingletonPtr()->getGhostRespawn(0));
+		entity->setMaterialName(ghostMaterial + "Dead");
 		if (currentVertex->getData().getIndex() == Scene::getSingletonPtr()->getGhostRespawn(0)->getData().getIndex())
 		{
 			state = GhostState::EXIT;
 			currentVertex = previousVertex;
+			entity->setMaterialName(ghostMaterial);
 			time = 0;
 		}
 
@@ -179,10 +183,7 @@ void Ghost::chase(GraphVertex* objective)
 		{
 			targetVertex = futherNextVertx(objective, currentVertex, previousVertex);
 		}
-
-
 		getDirecction(targetVertex, currentVertex);
-
 	}
 }
 
@@ -314,5 +315,6 @@ void Ghost::init(GraphVertex* vertex, GhostState gState)
 	previousVertex = currentVertex;
 	targetVertex = NULL;
 	state = gState;
+	entity->setMaterialName(ghostMaterial);
 
 }

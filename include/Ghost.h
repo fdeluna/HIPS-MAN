@@ -29,6 +29,7 @@ public:
 	GraphVertex* getCurrentVertex(){ return currentVertex; };
 	void init(GraphVertex* vertex,GhostState gState);
 	void  setSpeed(float fSpeed);	
+	void  setGhostMaterial(std::string material){ ghostMaterial = material; };
 	void  setDirecction(Direcction dDirecction);
 
 	GraphVertex* closerNextVertx(GraphVertex* targetVertx, GraphVertex* actualVertx, GraphVertex* previousVertex);
@@ -52,6 +53,7 @@ private:
 	GraphVertex* targetVertex;
 	GraphVertex* currentVertex;
 	GraphVertex* finalVertex;
+	std::string  ghostMaterial;
 
 	float time = 0;
 
