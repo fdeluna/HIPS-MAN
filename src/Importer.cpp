@@ -1,10 +1,3 @@
-/* **********************************************************
-** Importador NoEscape 1.0
-** Curso de Experto en Desarrollo de Videojuegos 
-** Escuela Superior de Informatica - Univ. Castilla-La Mancha
-** Carlos Gonzalez Morcillo - David Vallejo Fernandez
-************************************************************/
-
 #include <xercesc/parsers/XercesDOMParser.hpp>
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/util/XMLString.hpp>
@@ -28,9 +21,7 @@ Importer& Importer::getSingleton(void)
     assert( msSingleton );  return ( *msSingleton );  
 }
 
-void
-Importer::parseScene
-(const char* path, Scene *scene)
+void Importer::parseScene (const char* path, Scene *scene)
 {
   // Inicialización.
   try {
@@ -112,9 +103,7 @@ Importer::parseScene
   delete parser;
 }
 
-void
-Importer::parseGraph
-(xercesc::DOMNode* graphNode, Scene* scene)
+void Importer::parseGraph (xercesc::DOMNode* graphNode, Scene* scene)
 {
   XMLCh* vertex_ch = XMLString::transcode("vertex");
   XMLCh* edge_ch = XMLString::transcode("edge");
@@ -140,9 +129,7 @@ Importer::parseGraph
   XMLString::release(&edge_ch);
 }
 
-void
-Importer::addVertexToScene
-(xercesc::DOMNode* vertexNode, Scene* scene)
+void Importer::addVertexToScene (xercesc::DOMNode* vertexNode, Scene* scene)
 {
   DOMNamedNodeMap* attributes = vertexNode->getAttributes();
   DOMNode* indexNode = attributes->getNamedItem(XMLString::transcode("index"));
@@ -172,9 +159,7 @@ Importer::addVertexToScene
   XMLString::release(&z_ch);
 }
 
-void
-Importer::addEdgeToScene
-(xercesc::DOMNode* edgeNode, Scene* scene)
+void Importer::addEdgeToScene (xercesc::DOMNode* edgeNode, Scene* scene)
 {
   XMLCh* vertex_ch = XMLString::transcode("vertex");
   std::vector<int> edge;
@@ -202,9 +187,7 @@ Importer::addEdgeToScene
   XMLString::release(&vertex_ch);
 }
 
-float
-Importer::getValueFromTag
-(xercesc::DOMNode* node, const XMLCh *tag)
+float Importer::getValueFromTag (xercesc::DOMNode* node, const XMLCh *tag)
 {
   for (XMLSize_t i = 0; i < node->getChildNodes()->getLength(); ++i ) {
 

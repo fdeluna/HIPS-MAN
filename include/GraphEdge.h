@@ -1,10 +1,3 @@
-/* **********************************************************
-** Importador NoEscape 1.0
-** Curso de Experto en Desarrollo de Videojuegos 
-** Escuela Superior de Informatica - Univ. Castilla-La Mancha
-** Carlos Gonzalez Morcillo - David Vallejo Fernandez
-************************************************************/
-
 #ifndef GRAPHEDGE_H
 #define GRAPHEDGE_H
 

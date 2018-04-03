@@ -2,114 +2,98 @@
 
 template<> PauseState* Ogre::Singleton<PauseState>::msSingleton = 0;
 
-void
-PauseState::enter ()
+void PauseState::enter()
 {
-  _root = Ogre::Root::getSingletonPtr();
+	_root = Ogre::Root::getSingletonPtr();
 
-  if (_root->hasSceneManager("PauseState") && _sceneMgr->hasCamera(
-	  "IntroCamera")) {
-	  _sceneMgr = _root->getSceneManager("PauseState");
-	  _camera = _sceneMgr->getCamera("IntroCamera");
-  }
-  else {
-	  _sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PauseState");
-	  // set camera
-	  _camera = _sceneMgr->createCamera("IntroCamera");
-  }
+	if (_root->hasSceneManager("PauseState") && _sceneMgr->hasCamera(
+		"IntroCamera")) {
+		_sceneMgr = _root->getSceneManager("PauseState");
+		_camera = _sceneMgr->getCamera("IntroCamera");
+	}
+	else {
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PauseState");
+		// set camera
+		_camera = _sceneMgr->createCamera("IntroCamera");
+	}
 
-  _viewport = _root->getAutoCreatedWindow()->getViewport(0);
-  // Nuevo background colour.
+	_viewport = _root->getAutoCreatedWindow()->getViewport(0);
+	// Nuevo background colour.
 
-  _exitGame = false;
-  createGUI();
+	_exitGame = false;
+	createGUI();
 
 }
 
 
-void
-PauseState::exit ()
+void PauseState::exit()
 {
 }
 
-void
-PauseState::pause ()
+void PauseState::pause()
 {
 }
 
-void
-PauseState::resume ()
+void PauseState::resume()
 {
 }
 
-bool
-PauseState::frameStarted
-(const Ogre::FrameEvent& evt)
+bool PauseState::frameStarted(const Ogre::FrameEvent& evt)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-  return true;
+	return true;
 }
 
-bool
-PauseState::frameEnded
-(const Ogre::FrameEvent& evt)
+bool PauseState::frameEnded(const Ogre::FrameEvent& evt)
 {
-  if (_exitGame)
-    return false;
-  
-  return true;
+	if (_exitGame)
+		return false;
+
+	return true;
 }
 
-void
-PauseState::keyPressed
-(const OIS::KeyEvent &e) {
-  // Tecla p --> Estado anterior.
+void PauseState::keyPressed(const OIS::KeyEvent &e) {
+	// Tecla p --> Estado anterior.
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(
 		static_cast<CEGUI::Key::Scan> (e.key));
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(e.text);
-  if (e.key == OIS::KC_ESCAPE) {
-	  _exitGame = true;
 
-  }
-  if (e.key == OIS::KC_R) {
-	  _pauseUI->setVisible(false);
-	  popState();
-	 
-  }
+	if (e.key == OIS::KC_ESCAPE)
+	{
+		_exitGame = true;
+	}
+	if (e.key == OIS::KC_R)
+	{
+		_pauseUI->setVisible(false);
+		popState();
+	}
 }
 
-void
-PauseState::keyReleased
-(const OIS::KeyEvent &e)
+void PauseState::keyReleased(const OIS::KeyEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(
 		static_cast<CEGUI::Key::Scan> (e.key));
 }
 
-void
-PauseState::mouseMoved
-(const OIS::MouseEvent &e)
+void PauseState::mouseMoved(const OIS::MouseEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
 		e.state.X.rel, e.state.Y.rel);
 }
 
-void
-PauseState::mousePressed
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+void PauseState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(
 		convertMouseButton(id));
 }
 
-void
-PauseState::mouseReleased
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+void PauseState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(
 		convertMouseButton(id));
 }
+
 CEGUI::MouseButton PauseState::convertMouseButton(OIS::MouseButtonID id) {
 	CEGUI::MouseButton ceguiId;
 	switch (id) {
@@ -127,18 +111,18 @@ CEGUI::MouseButton PauseState::convertMouseButton(OIS::MouseButtonID id) {
 	}
 	return ceguiId;
 }
-PauseState*
-PauseState::getSingletonPtr ()
+
+PauseState* PauseState::getSingletonPtr()
 {
-return msSingleton;
+	return msSingleton;
 }
 
-PauseState&
-PauseState::getSingleton ()
-{ 
-  assert(msSingleton);
-  return *msSingleton;
+PauseState& PauseState::getSingleton()
+{
+	assert(msSingleton);
+	return *msSingleton;
 }
+
 bool PauseState::resume(const CEGUI::EventArgs &e) {
 	_resumeGame = true;
 	_pauseUI->setVisible(false);
@@ -151,11 +135,13 @@ bool PauseState::resume(const CEGUI::EventArgs &e) {
 	popState();
 	return true;
 }
+
 bool PauseState::quit(const CEGUI::EventArgs &e) {
 	pushState(IntroState::getSingletonPtr());
 	return true;
 }
-void PauseState::createGUI() 
+
+void PauseState::createGUI()
 {
 	//Sheet
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
@@ -189,35 +175,7 @@ void PauseState::createGUI()
 	_heart3->setVisible(false);
 	_scoreTextGUI->setVisible(false);
 	_scoreNumberTextGUI->setVisible(false);
-	_lifeText->setVisible(false); 
-	//_winUI->setVisible(false);
-	//_gameOverUI->setVisible(false);
-	/*
-	_resume = _pauseUI->getChild("Resume");
-	_exitPause = _pauseUI->getChild("Exit");
-	_retry = _gameOverUI->getChild("Retry");
-	_exitGameOver = _gameOverUI->getChild("Exit");
-
-	_nameText = _winUI->getChild("NameText");
-	_save = _winUI->getChild("Save");
-
-	_resume->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::resume, this));
-	_exitPause->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-	_retry->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::retry, this));
-	_exitGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-
-	_save->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-
-	_winUI->setVisible(false);
-	_pauseUI->setVisible(false);
-	_gameOverUI->setVisible(false);
-	_nameText->setVisible(false);
-	*/
+	_lifeText->setVisible(false);
 	sheet->addChild(playStateUI);
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);

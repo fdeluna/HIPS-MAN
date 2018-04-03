@@ -33,9 +33,7 @@ InputManager::~InputManager ()
     }
 }
 
-void
-InputManager::initialise
-(Ogre::RenderWindow *renderWindow)
+void InputManager::initialise (Ogre::RenderWindow *renderWindow)
 {
   if(!_inputSystem) {
     // Setup basic variables
@@ -71,8 +69,7 @@ InputManager::initialise
   }
 }
 
-void
-InputManager::capture ()
+void InputManager::capture ()
 {
   // Capturar y actualizar cada frame.
   if (_mouse)
@@ -82,9 +79,7 @@ InputManager::capture ()
     _keyboard->capture();
 }
 
-void
-InputManager::addKeyListener
-(OIS::KeyListener *keyListener, const std::string& instanceName)
+void InputManager::addKeyListener (OIS::KeyListener *keyListener, const std::string& instanceName)
 {
   if (_keyboard) {
     // Comprobar si el listener existe.
@@ -98,9 +93,7 @@ InputManager::addKeyListener
   }
 }
 
-void
-InputManager::addMouseListener
-(OIS::MouseListener *mouseListener, const std::string& instanceName)
+void InputManager::addMouseListener (OIS::MouseListener *mouseListener, const std::string& instanceName)
 {
   if (_mouse) {
     // Comprobar si el listener existe.
@@ -114,9 +107,7 @@ InputManager::addMouseListener
   }
 }
 
-void
-InputManager::removeKeyListener
-(const std::string& instanceName)
+void InputManager::removeKeyListener (const std::string& instanceName)
 {
   // Comprobar si el listener existe.
   itKeyListener = _keyListeners.find(instanceName);
@@ -128,9 +119,7 @@ InputManager::removeKeyListener
   }
 }
 
-void
-InputManager::removeMouseListener 
-(const std::string& instanceName)
+void InputManager::removeMouseListener  (const std::string& instanceName)
 {
   // Comprobar si el listener existe.
   itMouseListener = _mouseListeners.find(instanceName);
@@ -142,9 +131,7 @@ InputManager::removeMouseListener
   }
 }
 
-void
-InputManager::removeKeyListener
-(OIS::KeyListener *keyListener)
+void InputManager::removeKeyListener (OIS::KeyListener *keyListener)
 {
   itKeyListener = _keyListeners.begin();
   itKeyListenerEnd = _keyListeners.end();
@@ -156,9 +143,7 @@ InputManager::removeKeyListener
   }
 }
 
-void
-InputManager::removeMouseListener
-(OIS::MouseListener *mouseListener)
+void InputManager::removeMouseListener (OIS::MouseListener *mouseListener)
 {
   itMouseListener = _mouseListeners.begin();
   itMouseListenerEnd = _mouseListeners.end();
@@ -170,29 +155,23 @@ InputManager::removeMouseListener
   }
 }
 
-void
-InputManager::removeAllListeners
-()
+void InputManager::removeAllListeners ()
 {
   _keyListeners.clear();
   _mouseListeners.clear();
 }
 
-void
-InputManager::removeAllKeyListeners ()
+void InputManager::removeAllKeyListeners ()
 {
   _keyListeners.clear();
 }
 
-void
-InputManager::removeAllMouseListeners ()
+void InputManager::removeAllMouseListeners ()
 {
   _mouseListeners.clear();
 }
 
-void
-InputManager::setWindowExtents 
-(int width, int height)
+void InputManager::setWindowExtents  (int width, int height)
 {
   // Establecer la región del ratón.
   // Llamar al hacer un resize.
@@ -207,15 +186,12 @@ InputManager::getKeyboard ()
     return _keyboard;
 }
 
-OIS::Mouse*
-InputManager::getMouse ()
+OIS::Mouse* InputManager::getMouse ()
 {
     return _mouse;
 }
 
-bool
-InputManager::keyPressed 
-(const OIS::KeyEvent &e)
+bool InputManager::keyPressed  (const OIS::KeyEvent &e)
 {
   itKeyListener = _keyListeners.begin();
   itKeyListenerEnd = _keyListeners.end();
@@ -227,9 +203,7 @@ InputManager::keyPressed
   return true;
 }
 
-bool
-InputManager::keyReleased
-(const OIS::KeyEvent &e)
+bool InputManager::keyReleased (const OIS::KeyEvent &e)
 {
   itKeyListener = _keyListeners.begin();
   itKeyListenerEnd = _keyListeners.end();
@@ -241,9 +215,7 @@ InputManager::keyReleased
   return true;
 }
 
-bool
-InputManager::mouseMoved
-(const OIS::MouseEvent &e)
+bool InputManager::mouseMoved (const OIS::MouseEvent &e)
 {
   itMouseListener = _mouseListeners.begin();
   itMouseListenerEnd = _mouseListeners.end();
@@ -255,9 +227,7 @@ InputManager::mouseMoved
   return true;
 }
 
-bool
-InputManager::mousePressed
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+bool InputManager::mousePressed (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
   itMouseListener = _mouseListeners.begin();
   itMouseListenerEnd = _mouseListeners.end();
@@ -269,9 +239,7 @@ InputManager::mousePressed
     return true;
 }
 
-bool
-InputManager::mouseReleased
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+bool InputManager::mouseReleased (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
   itMouseListener = _mouseListeners.begin();
   itMouseListenerEnd = _mouseListeners.end();
@@ -283,14 +251,12 @@ InputManager::mouseReleased
   return true;
 }
 
-InputManager*
-InputManager::getSingletonPtr ()
+InputManager* InputManager::getSingletonPtr ()
 {
   return msSingleton;
 }
 
-InputManager&
-InputManager::getSingleton ()
+InputManager& InputManager::getSingleton ()
 {  
   assert(msSingleton);
   return *msSingleton;

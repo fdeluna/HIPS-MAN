@@ -1,7 +1,4 @@
 /*********************************************************************
- * Módulo 1. Curso de Experto en Desarrollo de Videojuegos
- * Autor: David Vallejo Fernández    David.Vallejo@uclm.es
- *
  * Código modificado a partir de Managing Game States with OGRE
  * http://www.ogre3d.org/tikiwiki/Managing+Game+States+with+OGRE
  * Inspirado en Managing Game States in C++
@@ -30,6 +27,7 @@
 
 class PauseState : public Ogre::Singleton<PauseState>, public GameState
 {
+
  public:
   PauseState() {}
 
@@ -86,5 +84,4 @@ class PauseState : public Ogre::Singleton<PauseState>, public GameState
   bool quit(const CEGUI::EventArgs &e);
   bool resume(const CEGUI::EventArgs &e);
 };
-
 #endif

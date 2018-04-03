@@ -1,15 +1,6 @@
-/* **********************************************************
-** Importador NoEscape 1.0
-** Curso de Experto en Desarrollo de Videojuegos
-** Escuela Superior de Informatica - Univ. Castilla-La Mancha
-** Carlos Gonzalez Morcillo - David Vallejo Fernandez
-************************************************************/
-
 #include <GraphVertex.h>
 
-GraphVertex::GraphVertex
-(Node& data)
-:_data(data)
+GraphVertex::GraphVertex (Node& data):_data(data)
 {
 }
 
@@ -24,8 +15,7 @@ GraphVertex::~GraphVertex()
 	_edges.clear();
 }
 
-std::vector<GraphVertex*>
-GraphVertex::adjacents() const
+std::vector<GraphVertex*> GraphVertex::adjacents() const
 {
 	std::vector<GraphVertex*> result;
 	std::vector<GraphEdge*>::const_iterator it;

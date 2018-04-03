@@ -1,0 +1,52 @@
+material Cube1
+{
+	receive_shadows off
+	technique
+	{
+		pass
+		{
+			diffuse vertexcolour
+			specular 0.000000 0.000000 0.000000 63.25
+			texture_unit
+			{
+				texture losas.jpg
+			}
+		}
+	}
+}
+
+material red
+ {
+   technique
+   {
+     pass
+     {
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 1 0 0
+         alpha_op_ex source1 src_manual src_current 0.5
+       }
+     }
+   }
+ }
+ 
+ 
+material Crater
+{
+	receive_shadows off
+	technique
+	{
+		pass
+		{
+			diffuse vertexcolour
+			specular 0.000000 0.000000 0.000000 63.25
+			texture_unit
+			{
+				texture crater_large.jpg
+			}
+		}
+	}
+}

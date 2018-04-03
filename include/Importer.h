@@ -1,10 +1,3 @@
-/* **********************************************************
-** Importador NoEscape 1.0
-** Curso de Experto en Desarrollo de Videojuegos 
-** Escuela Superior de Informatica - Univ. Castilla-La Mancha
-** Carlos Gonzalez Morcillo - David Vallejo Fernandez
-************************************************************/
-
 #ifndef IMPORTER_H
 #define IMPORTER_H
 
@@ -12,7 +5,8 @@
 #include <xercesc/dom/DOM.hpp>
 #include <Scene.h>
 
-class Importer: public Ogre::Singleton<Importer> {
+class Importer: public Ogre::Singleton<Importer> 
+{
  public:
   void parseScene (const char* path, Scene *scene);
   

@@ -2,8 +2,7 @@
 
 template<> PlayState* Ogre::Singleton<PlayState>::msSingleton = 0;
 
-void
-PlayState::enter()
+void PlayState::enter()
 {
 	_root = Ogre::Root::getSingletonPtr();
 
@@ -32,7 +31,6 @@ PlayState::enter()
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 	_camera->setAspectRatio(width / height);
 
-
 	importer = new Importer();
 	scene = new Scene(_sceneMgr);
 	importer->parseScene("./data/output.xml", scene);
@@ -44,10 +42,9 @@ PlayState::enter()
 	graphNode->yaw(Ogre::Degree(180));
 	graphNode->setPosition(0, 0, 0);
 
-
 	scene->initMap(graphNode);
 	_sceneMgr->getRootSceneNode()->addChild(graphNode);
-	
+
 	Ogre::Entity* levelEntity = _sceneMgr->createEntity("PacManLevel.mesh");
 	levelNode = _sceneMgr->createSceneNode("PacManNode");
 	levelNode->attachObject(levelEntity);
@@ -63,13 +60,12 @@ PlayState::enter()
 	clyde = new Ghost(_sceneMgr, "ClydeNode", "ClydeEntity", "Ghost.mesh", pacMan, scene->getClydeHome());
 	pinky = new Ghost(_sceneMgr, "PinkyNode", "PinkyEntity", "Ghost.mesh", pacMan, scene->getPinkyHome());
 
-	pacMan->getSceneNode()->setScale(1.5, 1.5, 1.5);	
+	pacMan->getSceneNode()->setScale(1.5, 1.5, 1.5);
 	graphNode->addChild(pacMan->getSceneNode());
 	graphNode->addChild(inky->getSceneNode());
 	graphNode->addChild(blinky->getSceneNode());
 	graphNode->addChild(clyde->getSceneNode());
 	graphNode->addChild(pinky->getSceneNode());
-	
 
 	inky->setGhostMaterial("RedGhost");
 	pinky->setGhostMaterial("PinkGhost");
@@ -129,13 +125,13 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
 	switch (gameState)
 	{
 	case GameFlow::INIT:
-		inky->init(scene->getGhostRespawn(0), GhostState::EXIT);
-		blinky->init(scene->getGhostRespawn(1), GhostState::EXIT);
-		clyde->init(scene->getGhostRespawn(2), GhostState::EXIT);
-		pinky->init(scene->getExit(), GhostState::SCATTER);
-		pacMan->init(scene->getPacManRespawn());							
+		inky->init(scene->getGhostRespawn(0), Ghost::GhostState::EXIT);
+		blinky->init(scene->getGhostRespawn(1), Ghost::GhostState::EXIT);
+		clyde->init(scene->getGhostRespawn(2), Ghost::GhostState::EXIT);
+		pinky->init(scene->getExit(), Ghost::GhostState::SCATTER);
+		pacMan->init(scene->getPacManRespawn());
 		gameState = GameFlow::PLAY;
-		
+
 		break;
 
 	case GameFlow::PLAY:
@@ -149,18 +145,19 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
 			_getReadyText->setVisible(false);
 
 			if (pacMan->killed())
-			{				
+			{
 				gameState = GameFlow::INIT;
 				_getReadyText->setVisible(true);
 				_timeGetReady = 0;
 			}
 		}
 		break;
+
 	case GameFlow::WIN:
 		_winUI->setVisible(true);
 		break;
-	case GameFlow::GAMEOVER:		
-		_gameOverUI->setVisible(true);		
+	case GameFlow::GAMEOVER:
+		_gameOverUI->setVisible(true);
 		_getReadyText->setVisible(false);
 		break;
 	}
@@ -181,7 +178,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
 		_heart3->setVisible(false);
 		gameState = GameFlow::WIN;
 
-	} 
+	}
 	else if (pacMan->isDead())
 	{
 		loseBool = true;
@@ -214,26 +211,26 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
 }
 
 
-void PlayState::mouseMoved(const OIS::MouseEvent &e) 
+void PlayState::mouseMoved(const OIS::MouseEvent &e)
 {
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
 		e.state.X.rel, e.state.Y.rel);
 }
 
-void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id) 
+void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(
 		convertMouseButton(id));
 }
 
-void PlayState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id) 
+void PlayState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(
 		convertMouseButton(id));
 }
 
-bool PlayState::frameEnded (const Ogre::FrameEvent& evt)
+bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 {
 	if (_exitGame)
 		return false;
@@ -261,27 +258,6 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_heart3->setVisible(false);
 		pushState(PauseState::getSingletonPtr());
 	}
-	//TEMPORAL PARA ACCEDER A LOSE Y WIN GUI
-	if (e.key == OIS::KC_W)
-	{
-		//pacMan->setLife(0);
-		//_winUI->setVisible(true);
-	}
-	/*
-	if (e.key == OIS::KC_L)
-	{
-		loseBool = true;
-		_gameOverUI->setVisible(true);
-		graphNode->setVisible(false);
-		levelNode->setVisible(false);
-		_scoreTextGUI->setVisible(false);
-		_scoreNumberTextGUI->setVisible(false);
-		_lifeText->setVisible(false);
-		_heart1->setVisible(false);
-		_heart2->setVisible(false);
-		_heart3->setVisible(false);
-	}
-	*/
 
 	if (winBool && e.key == OIS::KC_ESCAPE)
 	{
@@ -294,21 +270,21 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 
 	if (e.key == OIS::KC_RIGHT)
 	{
-		pacMan->setDirecction(Direcction::RIGHT);
+		pacMan->setDirecction(GraphVertex::Direcction::RIGHT);
 	}
 
 	if (e.key == OIS::KC_LEFT)
 	{
-		pacMan->setDirecction(Direcction::LEFT);
+		pacMan->setDirecction(GraphVertex::Direcction::LEFT);
 	}
 
 	if (e.key == OIS::KC_UP)
 	{
-		pacMan->setDirecction(Direcction::UP);
+		pacMan->setDirecction(GraphVertex::Direcction::UP);
 	}
 	if (e.key == OIS::KC_DOWN)
 	{
-		pacMan->setDirecction(Direcction::DOWN);
+		pacMan->setDirecction(GraphVertex::Direcction::DOWN);
 	}
 
 }
@@ -363,25 +339,28 @@ bool PlayState::save(const CEGUI::EventArgs &e)
 	_scoresTXT.open("scores.txt", std::ofstream::app);
 
 	std::stringstream txt;
-	if (winBool){
-		if (_nameText->getText().size() == 0){
+	if (winBool)
+	{
+		if (_nameText->getText().size() == 0)
+		{
 			txt << "___" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
 		}
-		else if (_nameText->getText().size() == 1){
+		else if (_nameText->getText().size() == 1)
+		{
 			txt << "__" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
 		}
-		else if (_nameText->getText().size() == 2){
+		else if (_nameText->getText().size() == 2)
+		{
 			txt << "_" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
 		}
-		else{
+		else
+		{
 			txt << _nameText->getText() << " / " << pacMan->getScore() << "\n";
 		}
-
-
 	}
-	else{
+	else
+	{
 		txt << _nameTextLose->getText() << " / " << pacMan->getScore() << "\n";
-
 	}
 
 	_scoresTXT << txt.str();
@@ -393,8 +372,6 @@ bool PlayState::save(const CEGUI::EventArgs &e)
 
 void PlayState::createGUI()
 {
-
-
 	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
 	CEGUI::Font::setDefaultResourceGroup("Fonts");
@@ -414,9 +391,6 @@ void PlayState::createGUI()
 	//Config Window	
 	playStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"playLayout.layout");
-
-
-
 
 	_gameOverUI = playStateUI->getChild("FondoGameOver");
 	_winUI = playStateUI->getChild("FondoWin");
@@ -443,24 +417,6 @@ void PlayState::createGUI()
 
 	_winUI->setVisible(false);
 	_gameOverUI->setVisible(false);
-
-	/*
-	_resume->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::resume, this));
-	_exitPause->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-	_retry->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::retry, this));
-	_exitGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-
-	_save->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-
-	_winUI->setVisible(false);
-	_pauseUI->setVisible(false);
-	_gameOverUI->setVisible(false);
-	*/
 	sheet->addChild(playStateUI);
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);

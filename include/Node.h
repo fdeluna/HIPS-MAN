@@ -1,10 +1,3 @@
-/* **********************************************************
-** Importador NoEscape 1.0
-** Curso de Experto en Desarrollo de Videojuegos
-** Escuela Superior de Informatica - Univ. Castilla-La Mancha
-** Carlos Gonzalez Morcillo - David Vallejo Fernandez
-************************************************************/
-
 #ifndef NODE_H
 #define NODE_H
 
@@ -15,6 +8,7 @@ using namespace std;
 
 class Node
 {
+
 public:
 	Node();
 	Node(const int& index, const string& type, const Ogre::Vector3& position);

@@ -8,7 +8,7 @@ Ghost::Ghost(SceneManager* sceneManager, std::string nodeName, std::string entNa
 	sceneNode->pitch(Ogre::Degree(180));
 	pacMan = pacman;
 	finalVertex = pacman->getCurrentVertex();
-	currentDirecction = Direcction::UP;
+	currentDirecction = GraphVertex::Direcction::UP;
 
 	targetVertex = NULL;
 	home = hHome;
@@ -202,7 +202,7 @@ void Ghost::setSpeed(float fSpeed)
 	speed = fSpeed;
 }
 
-void  Ghost::setDirecction(Direcction dDirecction)
+void  Ghost::setDirecction(GraphVertex::Direcction dDirecction)
 {
 	currentDirecction = dDirecction;
 }
@@ -215,25 +215,25 @@ void Ghost::getDirecction(GraphVertex* targetVertx, GraphVertex* actualVertx)
 		if (actualVertx->getData().getPosition().z < targetVertx->getData().getPosition().z)
 		{
 			direcction = MOVE_UP;
-			currentDirecction = Direcction::UP;
+			currentDirecction = GraphVertex::Direcction::UP;
 		}
 
 
 		if (actualVertx->getData().getPosition().z > targetVertx->getData().getPosition().z)
 		{
 			direcction = MOVE_DOWN;
-			currentDirecction = Direcction::DOWN;
+			currentDirecction = GraphVertex::Direcction::DOWN;
 		}
 
 		if (actualVertx->getData().getPosition().x < targetVertx->getData().getPosition().x)
 		{
 			direcction = MOVE_RIGHT;
-			currentDirecction = Direcction::RIGHT;
+			currentDirecction = GraphVertex::Direcction::RIGHT;
 		}
 
 		if (actualVertx->getData().getPosition().x > targetVertx->getData().getPosition().x)
 		{
-			currentDirecction = Direcction::LEFT;
+			currentDirecction = GraphVertex::Direcction::LEFT;
 			direcction = MOVE_LEFT;
 		}
 	}
@@ -284,23 +284,23 @@ GraphVertex* Ghost::futherNextVertx(GraphVertex* targetVertx, GraphVertex* actua
 	return nextVertex;
 }
 
-Direcction Ghost::getOppositeDirecction(Direcction dDirecction)
+GraphVertex::Direcction Ghost::getOppositeDirecction(GraphVertex::Direcction dDirecction)
 {
-	Direcction result = Direcction::NONE;
+	GraphVertex::Direcction result = GraphVertex::Direcction::NONE;
 
 	switch (dDirecction)
 	{
-	case Direcction::UP:
-		result = Direcction::DOWN;
+	case GraphVertex::Direcction::UP:
+		result = GraphVertex::Direcction::DOWN;
 		break;
-	case Direcction::DOWN:
-		result = Direcction::UP;
+	case GraphVertex::Direcction::DOWN:
+		result = GraphVertex::Direcction::UP;
 		break;
-	case Direcction::RIGHT:
-		result = Direcction::LEFT;
+	case GraphVertex::Direcction::RIGHT:
+		result = GraphVertex::Direcction::LEFT;
 		break;
-	case Direcction::LEFT:
-		result = Direcction::RIGHT;
+	case GraphVertex::Direcction::LEFT:
+		result = GraphVertex::Direcction::RIGHT;
 		break;
 	}
 

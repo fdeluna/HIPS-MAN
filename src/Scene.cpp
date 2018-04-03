@@ -13,11 +13,9 @@ Scene::Scene(Ogre::SceneManager* sceneManager)
 }
 
 
-
 Scene::~Scene()
 {
 }
-
 
 Scene* Scene::getSingletonPtr()
 {
@@ -160,7 +158,7 @@ GraphVertex* Scene::getPinkyHome()
 
 
 void Scene::removeMapItem(GraphVertex* v)
-{	
+{
 	mapItems.erase(std::remove(mapItems.begin(), mapItems.end(), v->getData().getIndex()), mapItems.end());
 	std::stringstream nameNode;
 	nameNode.str("");

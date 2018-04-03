@@ -73,7 +73,7 @@ void PacMan::move()
 			targetVertex = GraphVertex::nextVertx(currentDirecction, currentVertex);
 			if (!targetVertex)
 			{
-				currentDirecction = Direcction::NONE;
+				currentDirecction = GraphVertex::Direcction::NONE;
 			}
 		}
 
@@ -130,15 +130,15 @@ void PacMan::init(GraphVertex* vertex)
 {
 	currentVertex = vertex;
 	sceneNode->setPosition(vertex->getData().getPosition());	
-	currentDirecction = Direcction::NONE;
+	currentDirecction = GraphVertex::Direcction::NONE;
 	newDirecction = currentDirecction;
 	targetVertex = NULL;	
 	dead = false;	
 }
 
-void PacMan::setDirecction(Direcction dDirection)
+void PacMan::setDirecction(GraphVertex::Direcction dDirection)
 {
-	if (currentDirecction == Direcction::NONE)
+	if (currentDirecction == GraphVertex::Direcction::NONE)
 	{
 		currentDirecction = dDirection;
 		newDirecction = currentDirecction;
@@ -149,20 +149,20 @@ void PacMan::setDirecction(Direcction dDirection)
 	}
 }
 
-void PacMan::directionEnumToVector3(Direcction dDirection)
+void PacMan::directionEnumToVector3(GraphVertex::Direcction dDirection)
 {
 	switch (dDirection)
 	{
-	case Direcction::UP:
+	case GraphVertex::Direcction::UP:
 		direcction = MOVE_UP;
 		break;
-	case Direcction::DOWN:
+	case GraphVertex::Direcction::DOWN:
 		direcction = MOVE_DOWN;
 		break;
-	case Direcction::RIGHT:
+	case GraphVertex::Direcction::RIGHT:
 		direcction = MOVE_RIGHT;
 		break;
-	case Direcction::LEFT:
+	case GraphVertex::Direcction::LEFT:
 		direcction = MOVE_LEFT;
 		break;
 	}

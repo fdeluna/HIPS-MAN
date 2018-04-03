@@ -3,121 +3,103 @@
 
 template<> IntroState* Ogre::Singleton<IntroState>::msSingleton = 0;
 
-void
-IntroState::enter ()
+void IntroState::enter()
 {
-  _root = Ogre::Root::getSingletonPtr();
+	_root = Ogre::Root::getSingletonPtr();
 
-  if (_root->hasSceneManager("IntroState") && _sceneMgr->hasCamera(
-	  "IntroCamera")) {
-	  _sceneMgr = _root->getSceneManager("IntroState");
-	  _camera = _sceneMgr->getCamera("IntroCamera");
-  }
-  else {
-	  _sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "IntroState");
-	  //Inicializacion de CEGUI
-	  renderer = &CEGUI::OgreRenderer::bootstrapSystem();
-	  // set camera
-	  _camera = _sceneMgr->createCamera("IntroCamera");
-  }
-  _viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-  _viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
+	if (_root->hasSceneManager("IntroState") && _sceneMgr->hasCamera(
+		"IntroCamera")) {
+		_sceneMgr = _root->getSceneManager("IntroState");
+		_camera = _sceneMgr->getCamera("IntroCamera");
+	}
+	else {
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "IntroState");
+		//Inicializacion de CEGUI
+		renderer = &CEGUI::OgreRenderer::bootstrapSystem();
+		// set camera
+		_camera = _sceneMgr->createCamera("IntroCamera");
+	}
+	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
+	_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
 
-  _exitGame = false;
+	_exitGame = false;
 
-  //CEGUI
-  createGUI();
+	//CEGUI
+	createGUI();
 }
 
-void
-IntroState::exit()
+void IntroState::exit()
 {
-  _sceneMgr->clearScene();
-  _root->getAutoCreatedWindow()->removeAllViewports();
+	_sceneMgr->clearScene();
+	_root->getAutoCreatedWindow()->removeAllViewports();
 }
 
-void
-IntroState::pause ()
+void IntroState::pause()
 {
 }
 
-void
-IntroState::resume ()
+void IntroState::resume()
 {
 }
 
-bool
-IntroState::frameStarted
-(const Ogre::FrameEvent& evt) 
+bool IntroState::frameStarted(const Ogre::FrameEvent& evt)
 {
 	_timeSinceLastFrame = evt.timeSinceLastFrame;
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		_timeSinceLastFrame);
-  return true;
+	return true;
 }
 
-bool
-IntroState::frameEnded
-(const Ogre::FrameEvent& evt)
+bool IntroState::frameEnded(const Ogre::FrameEvent& evt)
 {
-  if (_exitGame)
-    return false;
-  
-  return true;
+	if (_exitGame)
+		return false;
+
+	return true;
 }
 
-void
-IntroState::keyPressed
-(const OIS::KeyEvent &e)
+void IntroState::keyPressed(const OIS::KeyEvent &e)
 {
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(
 		static_cast<CEGUI::Key::Scan> (e.key));
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(e.text);
 
-  // Transición al siguiente estado.
-  // Espacio --> PlayState
+	if (!_credits && !_highscore && e.key == OIS::KC_ESCAPE) {
+		_exitGame = true;
+	}
+	if (_credits && e.key == OIS::KC_ESCAPE) {
 
+		exitButton->setVisible(true);
+		playButton->setVisible(true);
+		highscoreButton->setVisible(true);
+		creditsButton->setVisible(true);
+		pacmanTittle->setVisible(true);
+		fondoCredits->setVisible(false);
+		fondoScore->setVisible(false);
+		_credits = false;
 
-  if (!_credits && !_highscore && e.key == OIS::KC_ESCAPE) {
-	  _exitGame = true;
-  }
-  if (_credits && e.key == OIS::KC_ESCAPE) {
+	}
+	if (e.key == OIS::KC_ESCAPE && _highscore) {
 
-	  exitButton->setVisible(true);
-	  playButton->setVisible(true);
-	  highscoreButton->setVisible(true);
-	  creditsButton->setVisible(true);
-	  pacmanTittle->setVisible(true);
-	  fondoCredits->setVisible(false);
-	  fondoScore->setVisible(false);
-	  _credits = false;
+		introStateUI->setVisible(true);
+		exitButton->setVisible(true);
+		playButton->setVisible(true);
+		highscoreButton->setVisible(true);
+		creditsButton->setVisible(true);
+		pacmanTittle->setVisible(true);
+		fondoCredits->setVisible(false);
+		fondoScore->setVisible(false);
+		_highscore = false;
 
-  }
-  if (e.key == OIS::KC_ESCAPE && _highscore) {
-
-	  introStateUI->setVisible(true);
-	  exitButton->setVisible(true);
-	  playButton->setVisible(true);
-	  highscoreButton->setVisible(true);
-	  creditsButton->setVisible(true);
-	  pacmanTittle->setVisible(true);
-	  fondoCredits->setVisible(false);
-	  fondoScore->setVisible(false);
-	  _highscore = false;
-
-  }
+	}
 
 }
 
-void
-IntroState::keyReleased
-(const OIS::KeyEvent &e )
+void IntroState::keyReleased(const OIS::KeyEvent &e)
 {
-	
- 
-  CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(
-	  static_cast<CEGUI::Key::Scan> (e.key));
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(
+		static_cast<CEGUI::Key::Scan> (e.key));
 }
 
 void
@@ -128,33 +110,27 @@ IntroState::mouseMoved
 		e.state.X.rel, e.state.Y.rel);
 }
 
-void
-IntroState::mousePressed
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+void IntroState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(
 		convertMouseButton(id));
 }
 
-void
-IntroState::mouseReleased
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+void IntroState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(
 		convertMouseButton(id));
 }
 
-IntroState*
-IntroState::getSingletonPtr ()
+IntroState* IntroState::getSingletonPtr()
 {
-return msSingleton;
+	return msSingleton;
 }
 
-IntroState&
-IntroState::getSingleton ()
-{ 
-  assert(msSingleton);
-  return *msSingleton;
+IntroState& IntroState::getSingleton()
+{
+	assert(msSingleton);
+	return *msSingleton;
 }
 
 bool IntroState::play(const CEGUI::EventArgs &e) {
@@ -267,22 +243,9 @@ void IntroState::createGUI() {
 	fondoScore = introStateUI->getChild("fondoScore");
 	_scoreText = fondoScore->getChild("scoreText");
 
-	/*
-	fondoHighScore = introStateUI->getChild("fondoHighScore");
-
-	fondoCredits = introStateUI->getChild("fondoCredits");
-
-	fondoHighScore->setXPosition(CEGUI::UDim(0.50, 0));
-
-	_scoreText = fondoHighScore->getChild("scoreText");
-
-
-	fondoHighScore->setVisible(false);
-	fondoCredits->setVisible(false);
-	*/
 	sheet->addChild(introStateUI);
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
-	
+
 }
 
 //Conversion mouse

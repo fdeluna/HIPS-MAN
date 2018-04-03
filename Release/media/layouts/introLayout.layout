@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+        <Window type="TaharezLook/Button" name="Play" >
+            <Property name="Area" value="{{0,424},{0,313},{0,650},{0,391}}" />
+            <Property name="HoverImage" value="TaharezLook/playTextPushed" />
+            <Property name="NormalImage" value="TaharezLook/playText" />
+            <Property name="PushedImage" value="TaharezLook/playText" />
+            <Property name="DisabledImage" value="TaharezLook/playText" />
+            <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+            <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+            <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+            <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+            <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+        </Window>
+        <Window type="TaharezLook/Button" name="Exit" >
+            <Property name="Area" value="{{0,435},{0,603},{0,654},{0,678}}" />
+            <Property name="HoverImage" value="TaharezLook/exitTextPushed" />
+            <Property name="NormalImage" value="TaharezLook/exitText" />
+            <Property name="DisabledImage" value="TaharezLook/exitText" />
+            <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+            <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+            <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+            <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+            <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+        </Window>
+        <Window type="TaharezLook/Button" name="Credits" >
+            <Property name="Area" value="{{0,329},{0,505},{0,748},{0,582}}" />
+            <Property name="HoverImage" value="TaharezLook/creditsTextPushed" />
+            <Property name="NormalImage" value="TaharezLook/creditsText" />
+            <Property name="DisabledImage" value="TaharezLook/creditsText" />
+            <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+            <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+            <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+            <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+            <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+        </Window>
+        <Window type="TaharezLook/Button" name="Score" >
+            <Property name="Area" value="{{0,390},{0,409},{0,683},{0,487}}" />
+            <Property name="HoverImage" value="TaharezLook/scoreTextPushed" />
+            <Property name="NormalImage" value="TaharezLook/scoreText" />
+            <Property name="DisabledImage" value="TaharezLook/scoreText" />
+            <Property name="HoverTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+            <Property name="MouseCursorImage" value="TaharezLook/cursor" />
+            <Property name="NormalTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+            <Property name="PushedTextColour" value="tl:64000000 tr:64000000 bl:64000000 br:64000000" />
+            <Property name="DisabledTextColour" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000" />
+        </Window>
+        <Window type="TaharezLook/StaticImage" name="PacManTittle" >
+            <Property name="Area" value="{{0,266},{0,14},{0,795},{0,198}}" />
+            <Property name="Image" value="TaharezLook/PacManTittle" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="fondoCredits" >
+            <Property name="Area" value="{{0,0},{0,-10},{0,1282},{0,724}}" />
+            <Property name="Visible" value="false" />
+            <Window type="TaharezLook/StaticImage" name="fer" >
+                <Property name="Area" value="{{0,212},{0,245},{0,374},{0,406}}" />
+                <Property name="Image" value="TaharezLook/fer" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="UpdateMode" value="Always" />
+            </Window>
+            <Window type="TaharezLook/StaticImage" name="luis" >
+                <Property name="Area" value="{{0,678},{0,245},{0,859},{0,414}}" />
+                <Property name="Image" value="TaharezLook/luis" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="UpdateMode" value="Always" />
+            </Window>
+            <Window type="TaharezLook/StaticText" name="ferText" >
+                <Property name="Area" value="{{0,94},{0,407},{0,538},{0,599}}" />
+                <Property name="Text" value="Fernando de Luna Romero" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="CentreAligned" />
+                <Property name="HorzScrollPageSize" value="432" />
+                <Property name="VertScrollPageSize" value="180" />
+                <Property name="HorzScrollDocumentSize" value="213" />
+                <Property name="VertScrollDocumentSize" value="18.625" />
+            </Window>
+            <Window type="TaharezLook/StaticText" name="luisText" >
+                <Property name="Area" value="{{0,495},{0,399},{0,961},{0,601}}" />
+                <Property name="Text" value="Luis Hernandez Hernandez" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="CentreAligned" />
+                <Property name="HorzScrollPageSize" value="454" />
+                <Property name="VertScrollPageSize" value="190" />
+                <Property name="HorzScrollDocumentSize" value="218" />
+                <Property name="VertScrollDocumentSize" value="18.625" />
+            </Window>
+            <Window type="TaharezLook/StaticImage" name="esc" >
+                <Property name="Area" value="{{0,58},{0,648},{0,110},{0,690}}" />
+                <Property name="Image" value="TaharezLook/esc" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="fondoScore" >
+            <Property name="Area" value="{{0,0},{0,0},{0,1318},{0,722}}" />
+            <Property name="Visible" value="false" />
+            <Window type="TaharezLook/StaticImage" name="esc" >
+                <Property name="Area" value="{{0,58},{0,648},{0,110},{0,690}}" />
+                <Property name="Image" value="TaharezLook/esc" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            </Window>
+            <Window type="TaharezLook/StaticText" name="scoreText" >
+                <Property name="Area" value="{{0,246},{0,34},{0,798},{0,684}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="WordWrapCentreAligned" />
+                <Property name="VertFormatting" value="TopAligned" />
+                <Property name="HorzScrollPageSize" value="540" />
+                <Property name="VertScrollPageSize" value="638" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

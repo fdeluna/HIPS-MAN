@@ -1,7 +1,4 @@
 /*********************************************************************
-* Módulo 1. Curso de Experto en Desarrollo de Videojuegos
-* Autor: David Vallejo Fernández    David.Vallejo@uclm.es
-*
 * Código modificado a partir de Managing Game States with OGRE
 * http://www.ogre3d.org/tikiwiki/Managing+Game+States+with+OGRE
 * Inspirado en Managing Game States in C++
@@ -34,13 +31,22 @@
 #include "PacMan.h"
 #include "Ghost.h"
 #include "GameState.h"
-#include "Enums.h"
 #include "PauseState.h"
 #include "IntroState.h"
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {
+
 public:
+	enum GameFlow
+	{
+		INIT,
+		PLAY,
+		GAMEOVER,
+		PAUSE,
+		WIN
+	};
+
 	PlayState() {}
 
 	void enter();
@@ -93,10 +99,7 @@ private:
 	GameFlow gameState = GameFlow::INIT;
 
 	// CEGUI
-	
-
-	bool quit(const CEGUI::EventArgs &e);
-	
+	bool quit(const CEGUI::EventArgs &e);	
 	bool save(const CEGUI::EventArgs &e);
 
 	CEGUI::Window* playStateUI;
@@ -117,16 +120,9 @@ private:
 	CEGUI::Window* _heart1;
 	CEGUI::Window* _heart2;
 	CEGUI::Window* _heart3;
-
-
-	CEGUI::Window* _turnText;
-	
-
-
-
+	CEGUI::Window* _turnText;	
 
 	// Time match for cegui GUI
 	float _time = 0;
 };
-
 #endif

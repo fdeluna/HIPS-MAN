@@ -3,17 +3,26 @@
 
 #include <Ogre.h>
 #include <GraphVertex.h>
-#include <Enums.h>
 #include "PacMan.h"
 #include "GameObject.h"
 
 class Ghost : public GameObject
 {
 public:
-	Ghost(SceneManager* sceneManager, std::string nodeName, std::string entName, std::string mesh, PacMan* pacman,GraphVertex* hHome);
+
+	enum  GhostState
+	{
+		WAIT,
+		CHASE,
+		SCATTER,
+		SCARED,
+		DEAD,
+		EXIT
+	};
+
+	Ghost(SceneManager* sceneManager, std::string nodeName, std::string entName, std::string mesh, PacMan* pacman, GraphVertex* hHome);
 	Ghost(){};
 	~Ghost();
-
 
 	virtual void update(const Ogre::FrameEvent& evt);
 
@@ -23,28 +32,27 @@ public:
 	void scatter();
 	void scared();
 
-	const bool  isDead();	
+	const bool  isDead();
 	void Ghost::isScared();
-	float getSpeed();	
+	float getSpeed();
 	GraphVertex* getCurrentVertex(){ return currentVertex; };
-	void init(GraphVertex* vertex,GhostState gState);
-	void  setSpeed(float fSpeed);	
+	void init(GraphVertex* vertex, GhostState gState);
+	void  setSpeed(float fSpeed);
 	void  setGhostMaterial(std::string material){ ghostMaterial = material; };
-	void  setDirecction(Direcction dDirecction);
+	void  setDirecction(GraphVertex::Direcction dDirecction);
 
 	GraphVertex* closerNextVertx(GraphVertex* targetVertx, GraphVertex* actualVertx, GraphVertex* previousVertex);
 	GraphVertex* futherNextVertx(GraphVertex* targetVertx, GraphVertex* actualVertx, GraphVertex* previousVertex);
-	Direcction getOppositeDirecction(Direcction dDirecction);
-	
-private:	
-	float speed = 0.75;
-	//bool  dead = false;
+	GraphVertex::Direcction getOppositeDirecction(GraphVertex::Direcction dDirecction);
+
+private:
+	float speed = 0.75;	
 
 	GhostState state;
 
 	// MOVEMENT
-	Ogre::Vector3 direcction = Ogre::Vector3::ZERO;		
-	Direcction currentDirecction = Direcction::NONE;
+	Ogre::Vector3 direcction = Ogre::Vector3::ZERO;
+	GraphVertex::Direcction currentDirecction = GraphVertex::Direcction::NONE;
 
 	PacMan* pacMan;
 	GraphVertex* home;
@@ -58,8 +66,8 @@ private:
 	float time = 0;
 
 	void getDirecction(GraphVertex* targetVertx, GraphVertex* actualVertx);
-	void directionEnumToVector3(Direcction dDirection);
-	void checkVertex(GraphVertex* vertex);	
+	void directionEnumToVector3(GraphVertex::Direcction dDirection);
+	void checkVertex(GraphVertex* vertex);
 };
 
 #endif

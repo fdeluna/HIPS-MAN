@@ -1,10 +1,3 @@
-/* **********************************************************
-** Importador NoEscape 1.0
-** Curso de Experto en Desarrollo de Videojuegos
-** Escuela Superior de Informatica - Univ. Castilla-La Mancha
-** Carlos Gonzalez Morcillo - David Vallejo Fernandez
-************************************************************/
-
 #ifndef SCENE_H
 #define SCENE_H
 
@@ -15,6 +8,7 @@
 
 class Scene : public Ogre::Singleton<Scene>
 {
+
 public:
 	Scene();
 	Scene(Ogre::SceneManager* sceneManager);
@@ -39,12 +33,9 @@ public:
 	bool contaisMapItem(GraphVertex* index);
 	int itemsInMap(){ return mapItems.size(); };
 
-
-
 	// Heredados de Ogre::Singleton.
 	static Scene& getSingleton();
 	static Scene* getSingletonPtr();
-
 
 private:
 	Graph *_graph;
@@ -65,6 +56,4 @@ private:
 	Ogre::SceneManager* _sceneManager;
 
 };
-
 #endif
-

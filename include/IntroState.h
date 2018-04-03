@@ -1,7 +1,4 @@
 /*********************************************************************
- * Módulo 1. Curso de Experto en Desarrollo de Videojuegos
- * Autor: David Vallejo Fernández    David.Vallejo@uclm.es
- *
  * Código modificado a partir de Managing Game States with OGRE
  * http://www.ogre3d.org/tikiwiki/Managing+Game+States+with+OGRE
  * Inspirado en Managing Game States in C++
@@ -73,14 +70,11 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
   CEGUI::Window* intro;
   CEGUI::Window* _scoreText;
 
-
   bool _play;
   bool _highscore;
   bool _credits;
 
-
   float _timeSinceLastFrame;
-
 
   bool play(const CEGUI::EventArgs &e);
   bool quit(const CEGUI::EventArgs &e);
